@@ -23,10 +23,10 @@ Javascript, React Native, Expo
 ### Features
 
 - Login
-- Signup 
-- Homepage 
-- Profiles 
-- Upload (for sale) Painting 
+- Signup
+- Homepage
+- Profiles
+- Upload (for sale) Painting
 - Delete Painting
 - Search for Users
 - Evaluate Price of Painting based on Picture
@@ -48,7 +48,7 @@ Typescript, Python, PostgreSQL, Redis
 
 ### Database Design
 
-// TODO
+[Database Schema](https://github.com/prince-ao/masterpiece/tree/main/backend/sql)
 
 ### API Design
 
