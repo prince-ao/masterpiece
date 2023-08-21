@@ -34,7 +34,7 @@ Javascript, React Native, Expo
 
 ### Interactions
 
-<img src="../assets/images/frontend-interaction.png" />
+<img src="../assets/frontend-interaction.png" />
 
 ### Design
 
@@ -44,7 +44,7 @@ Javascript, React Native, Expo
 
 ### Stack
 
-Typescript, Python, PostgreSQL, Redis
+Typescript, Express, Python, Flask, Karas, PostgreSQL, Redis
 
 ### Database Design
 
@@ -54,4 +54,306 @@ Typescript, Python, PostgreSQL, Redis
 
 ### API Design
 
-// TODO
+#### User Authentication and Authorization
+
+##### POST /api/signup
+
+```json
+body: {
+    "username": "string",
+    "email": "string",
+    "password": "string"
+}
+```
+
+`200` response:
+
+```json
+response: {
+    "token": "string"
+}
+```
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+---
+
+##### POST /api/login
+
+```json
+body: {
+    ("username": "string", |
+    "email": "string",)
+    "password": "string"
+}
+```
+
+`200` response:
+
+```json
+response: {
+    "token": "string"
+}
+```
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+#### Paintings Action
+
+##### POST /api/paintings
+
+```json
+content_type: "multipart/form-data",
+headers: {
+    "Authorization": "Bearer <token>"
+}
+body: {
+    "caption": "string",
+    "name": "string",
+    "image": "[image data]"
+}
+```
+
+`200` response:
+
+```json
+response: {
+    "image_url": "string",
+}
+```
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+##### PATCH /api/paintings/[painting_id]
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+body: {
+    ("caption": "string", |
+    "name": "string")
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+##### DELETE /api/paintings/[painting_id]
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+#### Comment Action
+
+##### POST /api/paintings/[painting_id]/comments
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+body: {
+    "text": "string",
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+##### PATCH /api/paintings/[painting_id]/comments/[comment_id]
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+body: {
+    "text": "string"
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+##### DELETE /api/paintings/[painting_id]/comments/[comment_id]
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+#### Like Action
+
+##### POST /api/paintings/[painting_id]/like
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+##### DELETE /api/paintings/[painting_id]/like/[like_id]
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+#### Follow Action
+
+##### POST /api/users/[user_id]/follow
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+##### DELETE /api/users/[user_id]/follow
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+#### Notification Action
+
+##### GET /api/notifications
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
+
+##### DELETE /api/notifications/[notifications_id]
+
+```json
+headers: {
+    "Authorization": "Bearer <token>"
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+response: {
+    "error_message": "string"
+}
+```
