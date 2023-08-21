@@ -34,7 +34,7 @@ Javascript, React Native, Expo
 
 ### Interactions
 
-<img src="./assets/frontend-interaction.png" />
+<img src="../assets/frontend-interaction.png" />
 
 ### Design
 
@@ -49,6 +49,8 @@ Typescript, Python, PostgreSQL, Redis
 ### Database Design
 
 [Database Schema](https://github.com/prince-ao/masterpiece/tree/main/backend/sql)
+
+<img src="../assets/images/db-schema.png">
 
 ### API Design
 
