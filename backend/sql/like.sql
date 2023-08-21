@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS m_like (
+	comment_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	user_id INT REFERENCES m_user,
+	painting_id INT REFERENCES painting,
+	created_at TIMESTAMP NOT NULL
+);

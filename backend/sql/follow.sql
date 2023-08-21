@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS follow (
+	follow_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	follower_id INT REFERENCES m_user,
+	following_id INT REFERENCES m_user,
+	created_at TIMESTAMP NOT NULL
+);
