@@ -34,7 +34,7 @@ Javascript, React Native, Expo
 
 ### Interactions
 
-<img src="../assets/frontend-interaction.png" />
+<img src="../assets/images/frontend-interaction.png" />
 
 ### Design
 
