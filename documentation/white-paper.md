@@ -45,3 +45,11 @@ Javascript, React Native, Expo
 ### Stack
 
 Typescript, Python, PostgreSQL, Redis
+
+### Database Design
+
+// TODO
+
+### API Design
+
+// TODO
