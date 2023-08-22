@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="https://github.com/prince-ao/masterpiece/blob/main/assets/images/icons/ios/AppIcon-29%403x.png" />
+</p>
 Masterpiece is an mobile app for art enthusiasts to explore and discover various artworks while also providing information about their prices. The app aims to bring together artists, galleries, and users in a seamless and visually appealing manner.
 
 # Features:
