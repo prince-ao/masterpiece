@@ -16,7 +16,7 @@ Masterpiece is an mobile app for art enthusiasts to explore and discover various
 
 # User-Flow
 
-![Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dbf6993a-4692-40ca-8958-7e54b91f6554/Untitled.png)
+![Untitled.png](https://github.com/prince-ao/masterpiece/blob/main/assets/images/Untitled.png)
 
 # Steps for installing and using the app:
 
