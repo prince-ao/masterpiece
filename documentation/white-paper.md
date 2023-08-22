@@ -633,7 +633,8 @@ _Note auth is optional_
       "caption": "string",
       "price": "number",
       "ai_price": "number",
-      "likes": "number"
+      "likes": "number",
+      "painting_id": "number"
     }
   ],
   "hasNext": "boolean"

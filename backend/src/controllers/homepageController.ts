@@ -1,14 +1,9 @@
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import express from "express";
 import pool from "../db";
-import { Validate } from "../middleware";
-import client from "../cache";
 
 const router = express.Router();
 const LIMIT = 10;
-const hour = 3600;
-const day = 24 * hour;
 
 router.post("/", async (req, res) => {
     const offset =
@@ -60,6 +55,7 @@ router.post("/", async (req, res) => {
                 token,
                 process.env.JWT_SECRET as string
             ) as { user_id: string };
+
             const result = await pool.query(
                 `SELECT p.*, u.*,
                             COUNT(l.painting_id) AS num_likes
