@@ -147,6 +147,8 @@ _Note: username xor email_
   "response": {
     "image_url": "string",
     "name": "string",
+    "price": "number",
+    "ai_price": "number",
     "caption": "string"
   }
 }
@@ -607,6 +609,8 @@ _Note: the body is caption or name_
 
 ##### GET /api/homepage?page=[page_number]
 
+_Note auth is optional_
+
 ```json
 {
   "headers": {
@@ -626,7 +630,10 @@ _Note: the body is caption or name_
       "user_id": "string",
       "username": "string",
       "profile_image_url": "string",
-      "caption": "string"
+      "caption": "string",
+      "price": "number",
+      "ai_price": "number",
+      "likes": "number"
     }
   ],
   "hasNext": "boolean"
