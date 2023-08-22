@@ -52,7 +52,7 @@ Typescript, Express, Python, Flask, Karas, PostgreSQL, Redis
 
 <img src="../assets/images/db-schema.png">
 
-### API Design
+### Social API Design
 
 #### User Authentication and Authorization
 
@@ -242,8 +242,10 @@ _Note: username xor password_
 `400` response:
 
 ```json
-response: {
+{
+  "response": {
     "error_message": "string"
+  }
 }
 ```
 
@@ -445,6 +447,109 @@ response: {
 ```
 
 `200` response:
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
+
+#### User Actions
+
+##### GET /api/users/[user_id]
+
+```json
+{
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
+```
+
+`200` response:
+
+```json
+{
+  "username": "string",
+  "bio": "string",
+  "followers_count": "number",
+  "following_count": "number",
+  "posts_count": "number",
+  "profile_image": "string"
+}
+```
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
+
+---
+
+##### GET /api/profile
+
+```json
+{
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
+```
+
+`200` response:
+
+```json
+{
+  "username": "string",
+  "bio": "string",
+  "followers_count": "number",
+  "following_count": "number",
+  "posts_count": "number",
+  "profile_image": "string"
+}
+```
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
+
+#### Search Actions
+
+##### POST /api/search?s=[search_string]
+
+```json
+{
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
+```
+
+`200` response:
+
+```json
+[
+  {
+    "username": "string",
+    "user_id": "number"
+  }
+]
+```
 
 `400` response:
 
