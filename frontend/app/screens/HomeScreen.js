@@ -1,27 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  ImageBackground,
-  StyleSheet,
-  View,
-  Text,
-  Animated,
-  Touchable,
-  TouchableOpacity,
-} from "react-native";
-import LoginPopup from "./LoginPopup";
-
-
-const HomeScreen = () => {
+import { ImageBackground, StyleSheet, View, Text, Animated, TouchableOpacity, Button  } from "react-native";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm"; 
+const HomeScreen = ({ navigation }) => {
   const [animationValue] = useState(new Animated.Value(0));
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
-
-  const openLoginPopup = () => {
-    setShowLoginPopup(true);
-  };
-
-  const closeLoginPopup = () => {
-    setShowLoginPopup(false);
-  };
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
   useEffect(() => {
     Animated.timing(animationValue, {
       toValue: 1,
@@ -29,6 +13,18 @@ const HomeScreen = () => {
       useNativeDriver: false,
     }).start();
   }, []);
+
+  const handleLoginPress = () => {
+    setShowLoginForm(true);
+  };
+
+  const handleRegisterPress = () => {
+    setShowRegisterForm(true);
+  };
+
+  const handleContinuePress = () => {
+    // Implement continue without login logic
+  };
 
   const ButtonStyle = {
     transform: [
@@ -43,28 +39,34 @@ const HomeScreen = () => {
 
   return (
     <ImageBackground
-      style={styles.background}
-      source={require("../assets/WelcomeBackground.jpg")}
-    >
-      <TouchableOpacity activeOpacity={0.7} onPress={openLoginPopup}>
-        <Animated.View style={[styles.loginButton, ButtonStyle]}>
-          <Text style={styles.buttonText}>Login</Text>
-        </Animated.View>
-        <LoginPopup isVisible={showLoginPopup} onClose={closeLoginPopup} />
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.7}>
-        <Animated.View style={[styles.registerButton, ButtonStyle]}>
-          <Text style={styles.buttonText}>Register</Text>
-        </Animated.View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.7}>
-        <Animated.View style={[styles.Cont, ButtonStyle]}>
-          <Text style={styles.buttonText}>Continue without login</Text>
-        </Animated.View>
-      </TouchableOpacity>
-      
-    </ImageBackground>
-  );
+    style={styles.background}
+    source={require("../assets/WelcomeBackground.jpg")}
+  >
+    {!showLoginForm && !showRegisterForm ? (
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity activeOpacity={0.7} onPress={handleLoginPress}>
+          <Animated.View style={[styles.loginButton, ButtonStyle]}>
+            <Text style={styles.buttonText}>Login</Text>
+          </Animated.View>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7} onPress={handleRegisterPress}>
+          <Animated.View style={[styles.registerButton, ButtonStyle]}>
+            <Text style={styles.buttonText}>Register</Text>
+          </Animated.View>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.7} onPress={handleContinuePress}>
+          <Animated.View style={[styles.Cont, ButtonStyle]}>
+            <Text style={styles.buttonText}>Continue without login</Text>
+          </Animated.View>
+        </TouchableOpacity>
+      </View>
+    ) : showLoginForm ? (
+      <LoginForm />
+    ) : (
+      <RegisterForm navigation={navigation} />
+    )}
+  </ImageBackground>
+);
 };
 
 const styles = StyleSheet.create({
