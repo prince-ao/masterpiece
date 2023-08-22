@@ -1,7 +1,7 @@
 import express from "express";
-import { userController } from "./controllers";
-import pool from "./db";
+import { userController, authenticationController } from "./controllers";
 import cors from "cors";
+import "dotenv/config";
 
 const app = express();
 const PORT = 3005;
@@ -19,7 +19,10 @@ app.use(
     })
 );
 
+app.use(express.json());
+
 app.use("/api/user", userController);
+app.use("/api/auth", authenticationController);
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);

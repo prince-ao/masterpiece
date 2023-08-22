@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS m_user (
 	user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	username varchar(20) NOT NULL,
+	username varchar(25) NOT NULL,
 	email TEXT NOT NULL,
 	bio TEXT,
-	password CHAR(23) NOT NULL,
+	password VARCHAR(100) NOT NULL,
 	created_at TIMESTAMP NOT NULL
 );

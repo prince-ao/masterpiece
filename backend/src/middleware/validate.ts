@@ -1,4 +1,4 @@
-import t from "io-ts";
+import * as t from "io-ts";
 import { isLeft } from "fp-ts/Either";
 import { Request, Response, NextFunction } from "express";
 

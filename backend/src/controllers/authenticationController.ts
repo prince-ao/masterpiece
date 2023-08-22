@@ -7,7 +7,7 @@ import client from "../cache";
 
 const router = express.Router();
 
-router.get("/signup", Validate.validateSignup, async (req, res) => {
+router.post("/signup", Validate.validateSignup, async (req, res) => {
     try {
         let users = await pool.query(
             "SELECT user_id FROM m_user WHERE username = $1 OR email = $2",
@@ -26,7 +26,7 @@ router.get("/signup", Validate.validateSignup, async (req, res) => {
 
         await pool.query(
             "INSERT INTO m_user(username, email, password, created_at) values ($1, $2, $3, $4)",
-            [req.body.username, req.body.email, hash, Date.now()]
+            [req.body.username, req.body.email, hash, new Date()]
         );
         users = await pool.query(
             "SELECT user_id FROM m_user WHERE username = $1",
@@ -38,13 +38,13 @@ router.get("/signup", Validate.validateSignup, async (req, res) => {
 
         const token = jwt.sign(
             { user_id: users.rows[0].user_id },
-            process.env.JWT_TOKEN as string,
+            process.env.JWT_SECRET as string,
             { expiresIn: day }
         );
 
         await client.connect();
 
-        client.set(token, 1, { EXAT: day });
+        await client.set(token, 1, { EXAT: day });
 
         await client.disconnect();
 
@@ -52,6 +52,7 @@ router.get("/signup", Validate.validateSignup, async (req, res) => {
             token,
         });
     } catch (err) {
+        console.log(err);
         res.status(400).json({ error_message: "Unknown error" });
     }
 });
