@@ -649,3 +649,60 @@ _Note auth is optional_
   }
 }
 ```
+
+### AI API Design
+
+#### Patina Model
+
+##### POST /patina
+
+```json
+{
+  "Content-Type": "multipart/form-data",
+  "body": {
+    "image": "[image data]"
+  }
+}
+```
+
+`200` response:
+
+```json
+{
+  "price": "number"
+}
+```
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
+
+##### PUT /patina
+
+```json
+{
+  "Content-Type": "multipart/form-data",
+  "body": {
+    "image": "[image data]",
+    "price": "number"
+  }
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
