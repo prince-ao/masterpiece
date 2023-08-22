@@ -528,9 +528,50 @@ _Note: username xor password_
 }
 ```
 
+---
+
+---
+
 #### Search Actions
 
-##### POST /api/search?s=[search_string]
+##### GET /api/search?s=[search_string]
+
+```json
+{
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
+```
+
+`200` response:
+
+```json
+[
+  {
+    "username": "string",
+    "user_id": "number"
+  }
+]
+```
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
+
+---
+
+---
+
+#### Homepage Actions
+
+##### GET /api/search?s=[search_string]
 
 ```json
 {
