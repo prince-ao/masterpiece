@@ -43,20 +43,14 @@ def open_image(image):
 
 image_array = np.array(list(map(open_image, sorted_image)))
 
-print(image_array.shape)
-
 with open(price_path, 'r') as file:
     priceHash = np.array(list(map(lambda x: int(x), file.read().split(","))))
 
     training_labels, testing_labels = tf.convert_to_tensor(priceHash[:-2]), tf.convert_to_tensor(priceHash[-2:])
     training_images, testing_images = tf.convert_to_tensor(image_array[:-2]), tf.convert_to_tensor(image_array[-2:])
 
-    print(training_images.shape)
-    print(training_labels.shape)
-
     model.fit(training_images, training_labels, epochs=100)
     
     test_acc = model.evaluate(testing_images,  testing_labels, verbose=2)
-    print('\nTest accuracy:', test_acc)
 
 model.save('model/saved_model')

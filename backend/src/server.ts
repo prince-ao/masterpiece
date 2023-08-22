@@ -1,5 +1,9 @@
 import express from "express";
-import { userController, authenticationController } from "./controllers";
+import {
+    userController,
+    authenticationController,
+    homepageController,
+} from "./controllers";
 import cors from "cors";
 import "dotenv/config";
 
@@ -23,6 +27,7 @@ app.use(express.json());
 
 app.use("/api/user", userController);
 app.use("/api/auth", authenticationController);
+app.use("/api/homepage", homepageController);
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
