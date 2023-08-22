@@ -56,7 +56,7 @@ Typescript, Express, Python, Flask, Karas, PostgreSQL, Redis
 
 #### User Authentication and Authorization
 
-##### POST /api/signup
+##### POST /api/auth/signup
 
 ```json
 {
@@ -90,7 +90,7 @@ Typescript, Express, Python, Flask, Karas, PostgreSQL, Redis
 
 ---
 
-##### POST /api/login
+##### POST /api/auth/login
 
 _Note: username xor password_
 
