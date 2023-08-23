@@ -5,7 +5,8 @@ import {
     StyleSheet,
     Text,
     View, 
-    FlatList
+    FlatList,
+    Dimensions
   } from "react-native";
   import { Stack } from 'expo-router';
 import { useState } from 'react'
@@ -18,7 +19,8 @@ const home = () => {
       <Stack.Screen
         options={{
           title: 'Masterpiece',
-          headerStyle: { backgroundColor: '#000', },
+          headerStyle: { backgroundColor: '#000' },
+          headerShadowVisible: false,
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
@@ -28,11 +30,11 @@ const home = () => {
       <ScrollView
         contentContainerStyle={{
           paddingTop: Platform.select({ android: 30 }),
-          paddingHorizontal: 10,
+          paddingHorizontal: 0,
         }}>
         <View style={styles.container}>
-          <View >
-            <FlatList
+          <View  style={styles.container}>
+            <FlatList 
             //dummy data for now
             data={[1,2,3,4,5,6,7,8,9]}
             renderItem={(item) => <Card data={item}/>}
@@ -47,8 +49,8 @@ const home = () => {
                         right:0,
                         left:0,
                         zIndex:-1}}> 
-                        <View style={{height:300,backgroundColor:"#f6f6f8"}}/>
-                        <View style={{flex:1,backgroundColor:"#f6f6f8"}}/>
+                        <View style={{height:0,backgroundColor:"#000"}}/>
+                        <View style={{flex:1,backgroundColor:"#000"}}/>
 
           </View>
         </View>
@@ -60,6 +62,10 @@ const home = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor:"#000",
+      padding:0,
+      margin:0,
+      width: Dimensions.get('window').width,
     },
     title: {
       fontSize: 20,
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
     separator: {
       marginVertical: 30,
       height: 1,
-      width: "80%",
+      width: "00%",
     },
   });
 

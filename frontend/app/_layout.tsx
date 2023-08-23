@@ -28,19 +28,6 @@ export default function HomeLayout() {
 
   if(!fontsloaded) return null;
   return <>
-          <Tabs>
-      <Tabs.Screen
-        // Name of the dynamic route.
-        name="home"
-        options={{
-          // Ensure the tab always links to the same href.
-          href: '',
-          // OR you can use the Href object:
-          href: {
-            pathname: '/home',
-          },
-        }}
-      />
-    </Tabs>
+          <Stack/>
     </>
 }

@@ -18,6 +18,7 @@ export default function Page() {
         options={{
           title: 'My home',
           headerStyle: { backgroundColor: '#f4511e' },
+          headerShadowVisible: false,
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
