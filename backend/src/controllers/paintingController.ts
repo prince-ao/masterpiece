@@ -5,7 +5,7 @@ import pool from "../db";
 import multer from "multer";
 import { PutObjectCommand, CreateBucketCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "../s3";
-import path from "path";
+import path from "node:path";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import { authenticateToken } from "../middleware";
@@ -46,6 +46,8 @@ router.post("/", upload.single("image"), async (req, res) => {
         Body: req.file?.stream,
     };
 
+    console.log('hiii')
+
     const formData = new FormData();
     formData.append(
         "image",
@@ -71,7 +73,8 @@ router.post("/", upload.single("image"), async (req, res) => {
         await pool.query(
             "INSERT INTO painting(user_id, name, caption, image_url, price, ai_price, sold, created_at) VALUES ($1, $2, $3, $4, $5, $6, FALSE, $7)",
             [
-                (req as any).user_id,
+                //(req as any).user_id,
+                123456,
                 body.name,
                 body.caption,
                 `https://${uploadParams.Bucket}.s3.amazonaws.com/${uploadParams.Key}`,
