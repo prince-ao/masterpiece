@@ -3,6 +3,7 @@ import {
     userController,
     authenticationController,
     homepageController,
+    paintingController,
 } from "./controllers";
 import cors from "cors";
 import "dotenv/config";
@@ -28,6 +29,7 @@ app.use(express.json());
 app.use("/api/user", userController);
 app.use("/api/auth", authenticationController);
 app.use("/api/homepage", homepageController);
+app.use("/api/painting", paintingController);
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
