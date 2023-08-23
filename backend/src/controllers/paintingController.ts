@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 import express from "express";
 import pool from "../db";
 import multer from "multer";
-import AWS from "aws-sdk";
+import { PutObjectCommand, CreateBucketCommand } from "@aws-sdk/client-s3";
+import { s3Client } from "../s3";
 import path from "path";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
@@ -11,7 +12,6 @@ import { authenticateToken } from "../middleware";
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
-const s3 = new AWS.S3();
 
 router.get("/:painting_id", async (req, res) => {
     try {
@@ -66,7 +66,7 @@ router.post("/", upload.single("image"), async (req, res) => {
             }
         );
 
-        s3.upload(uploadParams);
+        await s3Client.send(new PutObjectCommand(uploadParams));
 
         await pool.query(
             "INSERT INTO painting(user_id, name, caption, image_url, price, ai_price, sold, created_at) VALUES ($1, $2, $3, $4, $5, $6, FALSE, $7)",
