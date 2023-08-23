@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import Colors from '../constants/Colors';
 import { Appearance, useColorScheme } from 'react-native';
+import { Tabs } from 'expo-router/tabs'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -26,15 +27,7 @@ export default function HomeLayout() {
   },[fontsloaded])
 
   if(!fontsloaded) return null;
-  return <Stack 
-          screenOptions={{
-            headerStyle: {
-              backgroundColor:`${themeContainerStyle.background}`
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerShown: false
-          }}/>;
+  return <>
+          <Stack/>
+    </>
 }

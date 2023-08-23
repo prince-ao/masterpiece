@@ -6,6 +6,7 @@ interface FullScreenImageModalProps {
   visible: boolean;
   onClose: () => void;
   imageUrl: number;
+  style: {}
 }
 
 const FullScreenImageModal: React.FC<FullScreenImageModalProps> = ({ visible, onClose, imageUrl }) => {

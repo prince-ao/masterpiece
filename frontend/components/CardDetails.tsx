@@ -5,8 +5,12 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Feather from "@expo/vector-icons/Feather";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import FullScreenImageModal from "./FullImage";
+
+import MaterialIcons from "@expo/vector-icons/MaterialIcons"; // Add this import for the comment icon
+
 const Detail = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const handleImagePress = () => {
     setModalVisible(true);
@@ -15,15 +19,23 @@ const Detail = () => {
   const closeModal = () => {
     setModalVisible(false);
   };
+
+  const handleLikePress = () => {
+    setIsLiked(!isLiked);
+  };
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity>
-            <Feather name="chevron-left" color="#FFF" size={25} />
+            <Feather name="camera" color="#000" size={25} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <FontAwesome name="paper-plane-o" color="#000" size={25} />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={handleImagePress}>
+        <TouchableOpacity onPress={handleImagePress} style={styles.imageContainer}>
           <Image
             source={require("../assets/images/scooter.png")}
             style={styles.img}
@@ -33,24 +45,33 @@ const Detail = () => {
         <View style={styles.cont3}>
           <Text style={styles.title}>Maxx Scooter</Text>
           <Text style={styles.subtitle}>Model S1</Text>
-
           <Text style={styles.text}>
             Lorem ipsum dolor sit amet, consectutur adipsing elit, sed do eiusmod
             tempor inciduent ut labore et dolore magna
           </Text>
           <View style={styles.cont1}>
-            <FontAwesome name="heart-o" color="#000" size={25} />
+            <TouchableOpacity
+              style={styles.likeBtn}
+              onPress={handleLikePress}
+            >
+              <FontAwesome
+                name={isLiked ? "heart" : "heart-o"}
+                color={isLiked ? "#E2443B" : "#000"}
+                size={25}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.commentIcon}>
+              <MaterialIcons name="comment" color="#000" size={25} />
+            </TouchableOpacity>
             <TouchableOpacity style={styles.btn}>
               <Text style={styles.btnText}>Next</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.commentsContainer}>
+            <Text style={styles.commentText}>View all 42 comments</Text>
+          </View>
         </View>
       </ScrollView>
-      <FullScreenImageModal
-        visible={modalVisible}
-        imageUrl={require("../assets/images/scooter.png")} // Replace with the actual image source
-        onClose={closeModal}
-      />
     </SafeAreaView>
   );
 };
@@ -124,4 +145,46 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
   },
+  
+  logo: {
+    width: 120, // Adjust the size as needed
+    height: 30, // Adjust the size as needed
+  },
+  
+  imageContainer: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 5,
+    marginBottom: 10,
+    overflow: "hidden",
+  },
+  
+  likeBtn: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 30,
+  },
+  
+  modal: {
+    backgroundColor: "black",
+  },
+  commentIcon: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
+  
+  commentsContainer: {
+    marginTop: 10,
+    paddingHorizontal: 20,
+  },
+  
+  commentText: {
+    color: "#666",
+  },
 });
+
+
+
+
+
+
