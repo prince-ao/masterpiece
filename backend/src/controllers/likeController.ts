@@ -7,7 +7,7 @@ import authenticateToken from "../middleware/authenticateToken";
 
 const router = express.Router();
 
-router.post("/:painting_id/like", authenticateToken, async (req, res) => {
+router.post("/:painting_id", authenticateToken, async (req, res) => {
     try {
         const authenticatedUser = (req as any).user_id;
         
@@ -27,14 +27,15 @@ router.post("/:painting_id/like", authenticateToken, async (req, res) => {
             [authenticatedUser, req.params.painting_id, new Date()]
         );
 
-        res.json({ message: "Painting liked successfully." });
+        res.status(200).json({ message: "Painting liked successfully." });
+        
     } catch (err) {
         console.error(err);
         res.status(400).json({ error: "An error occurred." });
     }
 });
 
-router.delete("/:painting_id/like/:m_like_id", authenticateToken, async (req, res) => {
+router.delete("/:painting_id/:m_like_id", authenticateToken, async (req, res) => {
 
     try {
         const authenticatedUser = (req as any).user_id;
@@ -54,8 +55,9 @@ router.delete("/:painting_id/like/:m_like_id", authenticateToken, async (req, re
             "DELETE FROM m_like WHERE user_id = $1 AND painting_id = $2 AND m_like_id = $3",
             [authenticatedUser, req.params.painting_id, req.params.m_like_id]
         );
-
-        res.json({ message: "Painting unliked successfully." });
+        
+        res.status(200).json({ message: "Painting unliked successfully." });
+        
     } catch (err) {
         console.error(err);
         res.status(400).json({ error: "An error occurred." });
