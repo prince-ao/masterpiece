@@ -4,7 +4,8 @@ import {
     authenticationController,
     homepageController,
     paintingController,
-  likeController
+    likeController,
+    followController
 } from "./controllers";
 
 import cors from "cors";
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use("/api/user", userController);
 app.use("/api/auth", authenticationController);
 app.use("/api/like", likeController);
+app.use("/api/follow", followController);
 app.use("/api/homepage", homepageController);
 app.use("/api/painting", paintingController);
 
