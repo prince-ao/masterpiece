@@ -7,6 +7,7 @@ import {
     View, 
     FlatList
   } from "react-native";
+  import { Stack } from 'expo-router';
 import { useState } from 'react'
 import { HomeHeader, Card, FocusStatusBar } from '../../components'
 import Colors from "../../constants/Colors";
@@ -14,6 +15,16 @@ import Colors from "../../constants/Colors";
 const home = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: 'Masterpiece',
+          headerStyle: { backgroundColor: '#000', },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
       <ScrollView
         contentContainerStyle={{
           paddingTop: Platform.select({ android: 30 }),

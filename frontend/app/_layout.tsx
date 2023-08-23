@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import Colors from '../constants/Colors';
 import { Appearance, useColorScheme } from 'react-native';
+import { Tabs } from 'expo-router/tabs'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -26,15 +27,20 @@ export default function HomeLayout() {
   },[fontsloaded])
 
   if(!fontsloaded) return null;
-  return <Stack 
-          screenOptions={{
-            headerStyle: {
-              backgroundColor:`${themeContainerStyle.background}`
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerShown: false
-          }}/>;
+  return <>
+          <Tabs>
+      <Tabs.Screen
+        // Name of the dynamic route.
+        name="home"
+        options={{
+          // Ensure the tab always links to the same href.
+          href: '',
+          // OR you can use the Href object:
+          href: {
+            pathname: '/home',
+          },
+        }}
+      />
+    </Tabs>
+    </>
 }
