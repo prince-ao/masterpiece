@@ -138,4 +138,34 @@ router.patch(
     }
 );
 
+router.delete("/:painting_id", authenticateToken, async (req, res) => {
+    try {
+        const painting_id = req.params.painting_id;
+        const body = req.body;
+        const result = await pool.query(
+            "SELECT user_id FROM painting WHERE painting_id = $1",
+            [painting_id]
+        );
+
+        if (result.rows.length == 0)
+            return res.send(400).send({
+                error_message: "Painting does not exist.",
+            });
+
+        if (result.rows[0].user_id != (req as any).user_id)
+            return res.status(400).send({
+                error_message: "User does not have access",
+            });
+
+        await pool.query("DELETE FROM painting WHERE painting_id = $1", [
+            painting_id,
+        ]);
+
+        return res.status(200);
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ error_message: "Unknown error" });
+    }
+});
+
 export default router;
