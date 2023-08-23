@@ -4,6 +4,7 @@ import express from "express";
 import pool from "../db";
 import { Validate } from "../middleware";
 import client from "../cache";
+import "dotenv/config";
 
 const router = express.Router();
 
