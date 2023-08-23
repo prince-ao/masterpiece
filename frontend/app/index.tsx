@@ -3,6 +3,7 @@ import { StyleSheet, View,ScrollView, SafeAreaView , Text } from 'react-native';
 import { Stack , useRouter } from 'expo-router';
 import { Tabs } from 'expo-router/tabs'
 import Button from '../components/Button';
+import SearchBar from '../components/SearchBar';
 
 import { COLORS,SIZES } from '../constants';
 
@@ -26,6 +27,7 @@ export default function Page() {
         }}
       />
         <Button title=" Home"onPress={goHome} >  </Button>
+        <SearchBar></SearchBar>
     </SafeAreaView>
     );
 }

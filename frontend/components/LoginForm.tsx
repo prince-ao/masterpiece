@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useState } from "react";
+import * as SecureStore from 'expo-secure-store';
 import {
   View,
   Text,
@@ -15,7 +17,49 @@ const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    const requestOptions = {
+      headers: { 'Content-Type': 'application/json' }, 
+    };
+    
+    const requestData = { email: email, password: password };
+    
+    axios.post('http://localhost:3005/api/auth/login', requestData, requestOptions)
+      .then(response => {
+        if (response.data) {
+          storeToken(response.data.token)
+          console.log('Login success');
+          console.log(response.data.token);
+        } else {
+          console.error('Error registering:', response.data);
+        }
+      })
+      .catch(error => {
+        console.error('Request error:', error);
+      });
+
+
+
+
+  };
+
+  const storeToken = async (token) => {
+    try {
+      await SecureStore.setItemAsync('authToken', token);
+      console.log('Token stored successfully');
+    } catch (error) {
+      console.error('Error storing token:', error);
+    }
+  };
+
+  const getToken = async () => {
+    try {
+      const token = await SecureStore.getItemAsync('authToken');
+      return token;
+    } catch (error) {
+      console.error('Error retrieving token:', error);
+    }
+  };
 
   return (
     <ImageBackground
