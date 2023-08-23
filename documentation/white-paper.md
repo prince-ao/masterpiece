@@ -92,7 +92,7 @@ Typescript, Express, Python, Flask, Karas, PostgreSQL, Redis
 
 ##### POST /api/auth/login
 
-_Note: username xor password_
+_Note: username xor email_
 
 ```json
 {
@@ -129,6 +129,40 @@ _Note: username xor password_
 ---
 
 #### Paintings Action
+
+##### GET /api/paintings/[painting_id]
+
+```json
+{
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
+```
+
+`200` response:
+
+```json
+{
+  "response": {
+    "image_url": "string",
+    "name": "string",
+    "price": "number",
+    "ai_price": "number",
+    "caption": "string"
+  }
+}
+```
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
 
 ##### POST /api/paintings
 
@@ -170,15 +204,17 @@ _Note: username xor password_
 
 ##### PATCH /api/paintings/[painting_id]
 
+_Note: the body is caption or name_
+
 ```json
 {
-    "headers": {
-        "Authorization": "Bearer <token>"
-    },
-    "body": {
-        ("caption": "string", |
-        "name": "string")
-    }
+  "headers": {
+    "Authorization": "Bearer <token>"
+  },
+  "body": {
+    "caption": "string",
+    "name": "string"
+  }
 }
 ```
 
@@ -571,7 +607,9 @@ _Note: username xor password_
 
 #### Homepage Actions
 
-##### GET /api/search?s=[search_string]
+##### GET /api/homepage?page=[page_number]
+
+_Note auth is optional_
 
 ```json
 {
@@ -584,13 +622,80 @@ _Note: username xor password_
 `200` response:
 
 ```json
-[
-  {
-    "username": "string",
-    "user_id": "number"
-  }
-]
+{
+  "data": [
+    {
+      "image_url": "string",
+      "name": "string",
+      "user_id": "string",
+      "username": "string",
+      "profile_image_url": "string",
+      "caption": "string",
+      "price": "number",
+      "ai_price": "number",
+      "likes": "number"
+    }
+  ],
+  "hasNext": "boolean"
+}
 ```
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
+
+### AI API Design
+
+#### Patina Model
+
+##### POST /patina
+
+```json
+{
+  "Content-Type": "multipart/form-data",
+  "body": {
+    "image": "[image data]"
+  }
+}
+```
+
+`200` response:
+
+```json
+{
+  "price": "number"
+}
+```
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
+
+##### PUT /patina
+
+```json
+{
+  "Content-Type": "multipart/form-data",
+  "body": {
+    "image": "[image data]",
+    "price": "number"
+  }
+}
+```
+
+`200` response:
 
 `400` response:
 
