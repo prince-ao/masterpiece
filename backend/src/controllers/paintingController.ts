@@ -7,14 +7,11 @@ import AWS from "aws-sdk";
 import path from "path";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
+import { authenticateToken } from "../middleware";
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 const s3 = new AWS.S3();
-const uploadParams = {
-    Bucket: "cpt-hackathon-2023",
-    Key: "images/",
-};
 
 router.get("/:painting_id", async (req, res) => {
     try {
@@ -94,5 +91,51 @@ router.post("/", upload.single("image"), async (req, res) => {
         });
     }
 });
+
+router.patch(
+    "/:painting_id",
+    (req, res, next) => {
+        if (req.body.caption === undefined && req.body.name === undefined)
+            return res.send(400).send({
+                error_message: "Invalid body",
+            });
+        next();
+    },
+    authenticateToken,
+    async (req, res) => {
+        try {
+            const painting_id = req.params.painting_id;
+            const body = req.body;
+            const result = await pool.query(
+                "SELECT user_id FROM painting WHERE painting_id = $1",
+                [painting_id]
+            );
+
+            if (result.rows.length == 0)
+                return res.send(400).send({
+                    error_message: "Painting does not exist.",
+                });
+
+            if (result.rows[0].user_id != (req as any).user_id)
+                return res.status(400).send({
+                    error_message: "User does not have access",
+                });
+
+            await pool.query(
+                `UPDATE painting FROM painting SET ${
+                    body.caption ? `caption = ${body.caption}, ` : ""
+                } ${
+                    body.name ? `name = ${body.name}` : ""
+                } WHERE painting_id = $1`,
+                [painting_id]
+            );
+
+            return res.status(200);
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ error_message: "Unknown error" });
+        }
+    }
+);
 
 export default router;
