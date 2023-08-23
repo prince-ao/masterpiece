@@ -34,7 +34,7 @@ app.use("/api/auth", authenticationController);
 app.use("/api/like", likeController);
 app.use("/api/follow", followController);
 app.use("/api/homepage", homepageController);
-app.use("/api/painting", paintingController);
+app.use("/api/paintings", paintingController);
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
