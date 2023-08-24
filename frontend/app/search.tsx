@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, StyleSheet, View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import useFetch from '../hooks/useFetch';
+
 
 const Search: React.FC = () => {
   const [search, setSearch] = useState<string>('');
   const [filteredDataSource, setFilteredDataSource] = useState<any[]>([]);
   const [masterDataSource, setMasterDataSource] = useState<any[]>([]);
-
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setFilteredDataSource(responseJson);
-        setMasterDataSource(responseJson);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        const { data, isLoading, error, refetch } = useFetch('anime/img');
+        if (data) {
+            setMasterDataSource(data);
+        }
+    
   }, []);
 
   const searchFilterFunction = (text: string) => {

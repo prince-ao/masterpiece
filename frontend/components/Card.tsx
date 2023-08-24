@@ -1,12 +1,14 @@
+import React from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
-import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { HomepageData } from "../app/(tabs)/home";
 import { Ionicons } from "@expo/vector-icons";
 
-const Card = ({ data }: { data: HomepageData }) => {
-  const router = useRouter();
-  const params = useLocalSearchParams();
+interface CardProps {
+  data: HomepageData;
+  onPressProfile: () => void;
+}
 
+const Card: React.FC<CardProps> = ({ data, onPressProfile }) => {
   return (
     <View
       style={{
@@ -26,10 +28,12 @@ const Card = ({ data }: { data: HomepageData }) => {
             gap: 10,
           }}
         >
-          <Image
-            source={{ uri: "https://picsum.photos/100/100" }}
-            style={{ width: 40, height: 40, borderRadius: 20 }}
-          />
+          <TouchableOpacity onPress={onPressProfile}>
+            <Image
+              source={{ uri: "https://picsum.photos/100/100" }}
+              style={{ width: 40, height: 40, borderRadius: 20 }}
+            />
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 16,
@@ -38,7 +42,7 @@ const Card = ({ data }: { data: HomepageData }) => {
               color: "white",
             }}
           >
-            Art Title Goes here
+            {data.name}
           </Text>
         </View>
         <Image

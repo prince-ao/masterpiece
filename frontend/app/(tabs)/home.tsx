@@ -7,6 +7,7 @@ import {
   View,
   FlatList,
   Dimensions,
+  TouchableOpacity
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Stack } from "expo-router";
@@ -14,6 +15,7 @@ import { useEffect, useState } from "react";
 import { HomeHeader, Card, FocusStatusBar } from "../../components";
 import Colors from "../../constants/Colors";
 import axios from "axios";
+import { router } from 'expo-router';
 
 export interface HomepageData {
   image_url: string;
@@ -47,7 +49,9 @@ const home = () => {
       setHome(data);
     })();
   }, []);
-
+  const handleProfilePage = (userId: string) => {
+    router.replace(`/profilepage?userId=${userId}`);
+  };
   async function getHomepage() {
     // const response = await axios.get(`${origin}/api/homepage?page=${page}`);
 
@@ -139,29 +143,31 @@ const home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{
-          paddingTop: Platform.select({ android: 30 }),
-          paddingHorizontal: 0,
-        }}
-      >
+    <ScrollView
+      contentContainerStyle={{
+        paddingTop: Platform.select({ android: 30 }),
+        paddingHorizontal: 0,
+      }}
+    >
+      <View style={styles.container}>
         <View style={styles.container}>
-          <View style={styles.container}>
-            {home ? (
-              <FlatList
-                data={home!.data}
-                renderItem={({ item }) => <Card data={item} />}
-                keyExtractor={(item) => item.toString()}
-                showsVerticalScrollIndicator={false}
-              />
-            ) : (
-              <></>
-            )}
-          </View>
+          {home ? (
+            <FlatList
+              data={home.data}
+              renderItem={({ item }) => (
+                <Card data={item} onPressProfile={() => handleProfilePage(item.user_id)} />
+              )}
+              keyExtractor={(item) => item.user_id}
+              showsVerticalScrollIndicator={false}
+            />
+          ) : (
+            <></>
+          )}
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+      </View>
+    </ScrollView>
+  </SafeAreaView>
+);
 };
 
 const styles = StyleSheet.create({
