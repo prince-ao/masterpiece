@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { ImageBackground, StyleSheet, View, Text, Animated, TouchableOpacity, Button  } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  Text,
+  Animated,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm"; 
+import RegisterForm from "./RegisterForm";
 const HomeScreen = () => {
   const [animationValue] = useState(new Animated.Value(0));
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -39,41 +47,35 @@ const HomeScreen = () => {
 
   return (
     <ImageBackground
-    style={styles.background}
-    source={require("../assets/WelcomeBackground.jpg")}
-  >
-    {!showLoginForm && !showRegisterForm ? (
-      <View>
-        <TouchableOpacity activeOpacity={0.7} onPress={handleLoginPress}>
-          <Animated.View style={[styles.loginButton, ButtonStyle]}>
-            <Text style={styles.buttonText}>Login</Text>
-          </Animated.View>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.7} onPress={handleRegisterPress}>
-          <Animated.View style={[styles.registerButton, ButtonStyle]}>
-            <Text style={styles.buttonText}>Register</Text>
-          </Animated.View>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.7} onPress={handleContinuePress}>
-          <Animated.View style={[styles.Cont, ButtonStyle]}>
-            <Text style={styles.buttonText}>Continue without login</Text>
-          </Animated.View>
-        </TouchableOpacity>
-      </View>
-    ) : showLoginForm ? (
-      <LoginForm />
-    ) : (
-      <RegisterForm />
-    )}
-  </ImageBackground>
-);
+      style={styles.background}
+      source={require("../assets/images/WelcomeBackground.jpg")}
+    >
+      {!showLoginForm && !showRegisterForm ? (
+        <View>
+          <TouchableOpacity activeOpacity={0.7} onPress={handleLoginPress}>
+            <Animated.View style={[styles.loginButton, ButtonStyle]}>
+              <Text style={styles.buttonText}>Login</Text>
+            </Animated.View>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.7} onPress={handleRegisterPress}>
+            <Animated.View style={[styles.registerButton, ButtonStyle]}>
+              <Text style={styles.buttonText}>Register</Text>
+            </Animated.View>
+          </TouchableOpacity>
+        </View>
+      ) : showLoginForm ? (
+        <LoginForm />
+      ) : (
+        <RegisterForm />
+      )}
+    </ImageBackground>
+  );
 };
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: "flex-end",
-    
   },
   loginButton: {
     width: "80%",
@@ -93,6 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 50,
     alignSelf: "center",
+    marginBottom: 40,
   },
   buttonText: {
     color: "#fff",

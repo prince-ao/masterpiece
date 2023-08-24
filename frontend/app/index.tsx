@@ -1,26 +1,34 @@
-import { useState } from 'react'
-import { StyleSheet, View,ScrollView, SafeAreaView , Text } from 'react-native';
-import { Stack , useRouter } from 'expo-router';
-import Button from '../components/Button';
+import { useEffect, useState } from "react";
+import { StyleSheet, View, ScrollView, SafeAreaView, Text } from "react-native";
+import { Stack, router } from "expo-router";
+import Button from "../components/Button";
+import { getToken, removeToken } from "../lib/store";
 
-import { COLORS,SIZES } from '../constants';
-
-
+import { COLORS, SIZES } from "../constants";
 
 export default function Page() {
+  const onPress = () => {
+    router.push("/home");
+  };
 
-  const onPress = () => { router.push('/home') }
-  const router = useRouter();
-  return (
-    <SafeAreaView>
-        <Button title=" Home"onPress={onPress} >  </Button>
-    </SafeAreaView>
-    );
+  useEffect(() => {
+    (async () => {
+      const token = await getToken();
+
+      if (token === null) {
+        router.push("/limbo");
+      } else {
+        router.push("/profile");
+      }
+    })();
+  }, []);
+
+  return <></>;
 }
 
 const styles = StyleSheet.create({
   textStyle: {
-    fontFamilt: 'DMsans',
-    fontSize: 40, 
-  }
+    fontFamilt: "DMsans",
+    fontSize: 40,
+  },
 });

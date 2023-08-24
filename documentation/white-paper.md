@@ -549,7 +549,7 @@ _Note: the body is caption or name_
   "bio": "string",
   "followers_count": "number",
   "following_count": "number",
-  "posts_count": "number",
+  "painting_count": "number",
   "profile_image": "string"
 }
 ```

@@ -10,12 +10,40 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
+import { router } from "expo-router";
+import axios from "axios";
+import { storeToken } from "../lib/store";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {};
+  async function handleLogin() {
+    const requestOptions = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const requestData = { email: email, password: password };
+    const origin = "http://192.168.0.48:3005";
+
+    try {
+      const { data } = await axios.post(
+        `${origin}/api/auth/login`,
+        requestData,
+        requestOptions
+      );
+      const token = data.token;
+
+      await storeToken(token);
+      router.replace("/home");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function handleSignupNav() {
+    router.replace("/register");
+  }
 
   return (
     <ImageBackground
@@ -62,7 +90,11 @@ const LoginForm: React.FC = () => {
           </TouchableOpacity>
           <View style={styles.signupContainer}>
             <Text style={styles.signupText}>Don't have an account?</Text>
-            <Text style={styles.signupLink}>Sign Up</Text>
+            <TouchableOpacity>
+              <Text style={styles.signupLink} onPress={handleSignupNav}>
+                Sign Up
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
@@ -72,10 +104,9 @@ const LoginForm: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-        flex: 1,
-        width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height,
-        
+    flex: 1,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
   content: {
     flex: 1,

@@ -1,19 +1,51 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, ImageBackground, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import axios from "axios";
+import { storeToken } from "../lib/store";
 
-const RegisterForm = () => { 
+const RegisterForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const origin = "http://192.168.0.48:3005";
 
-  const handleRegister = () => {
-    
-  };
+  async function handleRegister() {
+    try {
+      const { data } = await axios.post(`${origin}/api/auth/signup`, {
+        username: name,
+        email,
+        password,
+      });
+      const token = data.token;
+
+      await storeToken(token);
+      router.replace("/home");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function handleLoginNav() {
+    router.replace("/login");
+  }
 
   return (
-    <ImageBackground source={require('../assets/images/LoginImage.jpg')} style={styles.background}>
+    <ImageBackground
+      source={require("../assets/images/LoginImage.jpg")}
+      style={styles.background}
+    >
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}
         keyboardShouldPersistTaps="handled"
@@ -22,7 +54,7 @@ const RegisterForm = () => {
         <View style={styles.formContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Name"
+            placeholder="Username"
             value={name}
             onChangeText={setName}
           />
@@ -33,7 +65,6 @@ const RegisterForm = () => {
             onChangeText={setEmail}
             keyboardType="email-address"
             autoCapitalize="none"
-            
             autoCorrect={false}
           />
           <View style={styles.passwordContainer}>
@@ -55,12 +86,20 @@ const RegisterForm = () => {
               />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={handleRegister}
+          >
             <Text style={styles.buttonText}>Register</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.backButton} >
-            <Text style={styles.buttonText}>Back to Home</Text>
           </TouchableOpacity>
+          <View style={styles.loginContainer}>
+            <Text style={styles.loginText}>Have an account?</Text>
+            <TouchableOpacity>
+              <Text style={styles.loginLink} onPress={handleLoginNav}>
+                Login
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </ImageBackground>
@@ -84,8 +123,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-      marginTop: 50,
-      fontFamily: 'serif',
+    marginTop: 50,
+    fontFamily: "serif",
   },
   formContainer: {
     width: Dimensions.get("window").width * 0.9,
@@ -126,14 +165,26 @@ const styles = StyleSheet.create({
   },
   passwordToggle: {
     marginLeft: 8,
-    },
-    backButton: {
-        backgroundColor: "#ccc",
-        paddingVertical: 14,
-        borderRadius: 5,
-        alignItems: "center",
-        marginTop: 20,
-      },
+  },
+  backButton: {
+    backgroundColor: "#ccc",
+    paddingVertical: 14,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  loginContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+  loginText: {
+    color: "#a5a5a5",
+    marginRight: 5,
+  },
+  loginLink: {
+    color: "#007bff",
+  },
 });
 
 export default RegisterForm;
