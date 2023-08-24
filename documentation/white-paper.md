@@ -166,16 +166,17 @@ _Note: username xor email_
 
 ##### POST /api/paintings
 
+_Note: the image is base64 encoded_
+
 ```json
 {
-  "content_type": "multipart/form-data",
   "headers": {
     "Authorization": "Bearer <token>"
   },
   "body": {
     "caption": "string",
     "name": "string",
-    "image": "[image data]"
+    "image": "string"
   }
 }
 ```
@@ -656,11 +657,12 @@ _Note auth is optional_
 
 ##### POST /patina
 
+_Note: the image is base64 encoded_
+
 ```json
 {
-  "Content-Type": "multipart/form-data",
   "body": {
-    "image": "[image data]"
+    "image": "string"
   }
 }
 ```

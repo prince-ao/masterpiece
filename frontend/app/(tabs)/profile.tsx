@@ -37,20 +37,6 @@ const profile = () => {
 
   async function handleAddImage() {
     router.push("/addImage");
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    const img = await fetchImageFromUri(result.assets![0].uri);
-  }
-
-  async function fetchImageFromUri(uri: string) {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    return blob;
   }
 
   const galleryImages = [

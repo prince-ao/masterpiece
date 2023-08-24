@@ -34,63 +34,63 @@ router.get("/:painting_id", async (req, res) => {
     }
 });
 
-router.post("/", upload.single("image"), async (req, res) => {
-    const uuid_ = uuid();
-    const body = req.body;
+router.post(
+    "/",
+    (req, res, next) => {
+        if (
+            req.body.image === undefined ||
+            req.body.image === "" ||
+            req.body.caption === undefined ||
+            req.body.name === undefined
+        ) {
+            return res.status(400).send({ error_message: "Invalid body" });
+        } else next();
+    },
+    authenticateToken,
+    async (req, res) => {
+        console.log((req as any).user_id);
+        const uuid_ = uuid();
+        const body = req.body;
+        const decodedImageBuffer = Buffer.from(body.image, "base64");
 
-    const uploadParams = {
-        Bucket: "cpt-hackathon-2023",
-        Key: `images/${uuid_}.${path.extname(
-            req.file?.originalname as string
-        )}`,
-        Body: req.file?.stream,
-    };
+        const uploadParams = {
+            Bucket: "cpt-hackathon-2023",
+            Key: `images/${uuid_}.jpg`,
+            Body: decodedImageBuffer,
+            ContentType: "image/jpeg",
+        };
 
-    const formData = new FormData();
-    formData.append(
-        "image",
-        new Blob([req.file?.buffer as Buffer], {
-            type: "application/octet-stream",
-        }),
-        req.file?.originalname
-    );
+        try {
+            const response = await axios.post(`http://localhost:3006/patina`, {
+                image: body.image,
+            });
 
-    try {
-        const response = await axios.post(
-            `http://localhost:3006/patina`,
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            }
-        );
+            await s3Client.send(new PutObjectCommand(uploadParams));
 
-        await s3Client.send(new PutObjectCommand(uploadParams));
+            await pool.query(
+                "INSERT INTO painting(user_id, name, caption, image_url, price, ai_price, sold, created_at) VALUES ($1, $2, $3, $4, $5, $6, FALSE, $7)",
+                [
+                    (req as any).user_id,
+                    body.name,
+                    body.caption,
+                    `https://${uploadParams.Bucket}.s3.amazonaws.com/${uploadParams.Key}`,
+                    body.price,
+                    response.data.price,
+                    new Date(),
+                ]
+            );
 
-        await pool.query(
-            "INSERT INTO painting(user_id, name, caption, image_url, price, ai_price, sold, created_at) VALUES ($1, $2, $3, $4, $5, $6, FALSE, $7)",
-            [
-                (req as any).user_id,
-                body.name,
-                body.caption,
-                `https://${uploadParams.Bucket}.s3.amazonaws.com/${uploadParams.Key}`,
-                body.price,
-                response.data.price,
-                new Date(),
-            ]
-        );
-
-        return res.status(200).send({
-            image_url: `https://${uploadParams.Bucket}.s3.amazonaws.com/${uploadParams.Key}`,
-        });
-    } catch (err) {
-        console.log(err);
-        return res.status(400).send({
-            error_message: "Unknown error",
-        });
+            return res.status(200).send({
+                image_url: `https://${uploadParams.Bucket}.s3.amazonaws.com/${uploadParams.Key}`,
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).send({
+                error_message: "Unknown error",
+            });
+        }
     }
-});
+);
 
 router.patch(
     "/:painting_id",
