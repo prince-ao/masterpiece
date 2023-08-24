@@ -130,6 +130,28 @@ _Note: username xor email_
 
 #### Paintings Action
 
+##### GET /api/paintings
+
+```json
+{
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
+```
+
+`200` response:
+
+```json
+{
+  "response": [
+    {
+      "image_url": "string"
+    }
+  ]
+}
+```
+
 ##### GET /api/paintings/[painting_id]
 
 ```json
@@ -176,7 +198,8 @@ _Note: the image is base64 encoded_
   "body": {
     "caption": "string",
     "name": "string",
-    "image": "string"
+    "image": "string",
+    "price": "number"
   }
 }
 ```

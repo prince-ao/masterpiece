@@ -34,6 +34,17 @@ router.get("/:painting_id", async (req, res) => {
     }
 });
 
+router.get("/", authenticateToken, async (req, res) => {
+    const result = await pool.query(
+        "SELECT image_url FROM painting WHERE user_id = $1",
+        [(req as any).user_id]
+    );
+
+    console.log(result.rows.map(({ image_url }) => image_url));
+
+    return res.status(200).send(result.rows.map(({ image_url }) => image_url));
+});
+
 router.post(
     "/",
     (req, res, next) => {
@@ -41,7 +52,8 @@ router.post(
             req.body.image === undefined ||
             req.body.image === "" ||
             req.body.caption === undefined ||
-            req.body.name === undefined
+            req.body.name === undefined ||
+            req.body.price === undefined
         ) {
             return res.status(400).send({ error_message: "Invalid body" });
         } else next();
