@@ -19,6 +19,7 @@ export default function login() {
   const [pickedImage, setPickedImage] = useState<string | undefined>();
   const [img, setImg] = useState<string | undefined>();
   const [caption, setCaption] = useState<string | undefined>();
+  const [price, setPrice] = useState<string | undefined>();
   const [name, setName] = useState<string | undefined>();
 
   const origin = "http://192.168.0.48:3005";
@@ -62,6 +63,7 @@ export default function login() {
           image: img,
           caption,
           name,
+          price: Number(price),
         },
         {
           headers: {
@@ -69,6 +71,10 @@ export default function login() {
           },
         }
       );
+      setImg("");
+      setPrice("");
+      setName("");
+      setCaption("");
       router.back();
     } catch (e) {
       console.log(e);
@@ -171,6 +177,15 @@ export default function login() {
           placeholderTextColor="#a5a5a5"
           value={caption}
           onChangeText={setCaption}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <TextInput
+          style={{ backgroundColor: "white", width: "70%", borderRadius: 4 }}
+          placeholder="Price"
+          placeholderTextColor="#a5a5a5"
+          value={price}
+          onChangeText={setPrice}
           autoCapitalize="none"
           autoCorrect={false}
         />

@@ -28,6 +28,7 @@ const profile = () => {
   const origin = "http://192.168.0.48:3005";
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<Profile | undefined>(undefined);
+  const [galleryImages, setGalleryImages] = useState<string[] | undefined>();
 
   function wait(milliseconds: number) {
     return new Promise((resolve) => {
@@ -38,16 +39,6 @@ const profile = () => {
   async function handleAddImage() {
     router.push("/addImage");
   }
-
-  const galleryImages = [
-    require("../../assets/images/icon.png"),
-    require("../../assets/images/icon.png"),
-    require("../../assets/images/icon.png"),
-    require("../../assets/images/icon.png"),
-    require("../../assets/images/icon.png"),
-    require("../../assets/images/icon.png"),
-    require("../../assets/images/icon.png"),
-  ];
 
   useEffect(() => {
     (async () => {
@@ -66,6 +57,14 @@ const profile = () => {
         await wait(1000);
 
         setLoading(false);
+
+        const response = await axios.get(`${origin}/api/paintings`, {
+          headers: {
+            Authentication: `Bearer ${await getToken()}`,
+          },
+        });
+
+        setGalleryImages(response.data);
       } catch (e) {
         console.log(e);
       }
@@ -158,17 +157,24 @@ const profile = () => {
                   padding: 10,
                 }}
               >
-                {galleryImages.map((image, index) => (
-                  <Image
-                    source={image}
-                    key={index}
-                    style={{
-                      width: 120,
-                      height: 120,
-                      marginBottom: 10,
-                    }}
-                  />
-                ))}
+                {galleryImages === undefined ? (
+                  <></>
+                ) : (
+                  galleryImages!.map((image, index) => {
+                    console.log(image);
+                    return (
+                      <Image
+                        source={{ uri: image }}
+                        key={index}
+                        style={{
+                          width: 120,
+                          height: 120,
+                          marginBottom: 10,
+                        }}
+                      />
+                    );
+                  })
+                )}
               </View>
             </ScrollView>
           </View>
