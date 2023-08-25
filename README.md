@@ -21,7 +21,7 @@ Our motivation behind developing this software app was to create a fair art mark
 ## ⚙️ Features
 
 <h1 align="center">👇<br></h1>
-<table align="center">
+<table align="center" width="200px" >
     <tr>
         <td>
             <h3>◦ User Authentication</h3>
