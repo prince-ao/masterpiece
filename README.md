@@ -82,6 +82,10 @@ Our motivation behind developing this software app was to create a fair art mark
 
 ![Untitled.png](https://github.com/prince-ao/masterpiece/blob/main/assets/images/User-flow.png)
 
+# Software-Architecture
+
+![Untitled.png](https://cdn.discordapp.com/attachments/1140776548505485401/1144641792621433013/arc.png)
+
 
 <p align="right">
   <a href="#top"><b>🔝 Return </b></a>
