@@ -86,7 +86,75 @@ Our motivation behind developing this software app was to create a fair art mark
 
 ![Untitled.png](https://cdn.discordapp.com/attachments/1140776548505485401/1144641792621433013/arc.png)
 
-
+# Database Design
+Comment.sql
+```
+CREATE TABLE IF NOT EXISTS m_comment (
+	comment_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	user_id INT REFERENCES m_user,
+	painting_id INT REFERENCES painting,
+	text TEXT,
+	created_at TIMESTAMP NOT NULL
+);
+```
+Follow.sql
+```
+CREATE TABLE IF NOT EXISTS follow (
+	follow_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	follower_id INT REFERENCES m_user,
+	following_id INT REFERENCES m_user,
+	created_at TIMESTAMP NOT NULL
+);
+```
+Like.sql
+```
+CREATE TABLE IF NOT EXISTS m_like (
+	m_like_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	user_id INT REFERENCES m_user,
+	painting_id INT REFERENCES painting,
+	created_at TIMESTAMP NOT NULL
+);
+```
+Notification.sql
+```
+CREATE TABLE IF NOT EXISTS notification (
+	notification_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	user_id INT REFERENCES m_user NOT NULL,
+	action_user_id INT REFERENCES m_user NOT NULL,
+	action_type VARCHAR(200) NOT NULL,
+	painting_id INT REFERENCES painting,
+	is_read BOOLEAN NOT NULL,
+	created_at TIMESTAMP NOT NULL
+);
+```
+Painting.sql
+```
+CREATE TABLE IF NOT EXISTS painting (
+	painting_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	user_id INT REFERENCES m_user,
+	name VARCHAR(200) NOT NULL,
+	caption VARCHAR(23) NOT NULL,
+	image_url TEXT NOT NULL,
+	price INT NOT NULL,
+	ai_price INT NOT NULL,
+	sold BOOLEAN NOT NULL,
+	created_at TIMESTAMP NOT NULL
+);
+```
+User.sql
+```
+CREATE TABLE IF NOT EXISTS m_user (
+	user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	username varchar(25) NOT NULL,
+	email TEXT NOT NULL,
+	bio TEXT,
+	profile_image_url TEXT;
+	password VARCHAR(100) NOT NULL,
+	created_at TIMESTAMP NOT NULL
+);
+```
+## Database relationship
+<img src="https://raw.githubusercontent.com/prince-ao/masterpiece/warhol/assets/images/db-schema.png">
 <p align="right">
   <a href="#top"><b>🔝 Return </b></a>
 </p>
