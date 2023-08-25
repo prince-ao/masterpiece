@@ -3,7 +3,7 @@
   <a href="url"><img src="https://github.com/prince-ao/masterpiece/blob/main/assets/images/icons/android/Roundlogo.png" height="auto" width="200" style="border-radius:50px"></a>
 </p>
 <h1 align="center"> Masterpiece </h1>
-<h3 align="center">Generate art prices with AI.</h3>
+<h3 align="center">Generate <i>Art</i> prices with AI.</h3>
 <h1 id="top"></h1>
 
 📍 ***Overview***
