@@ -1,6 +1,6 @@
 
 <p  align="center">
-  <a href="url"><img src="https://github.com/prince-ao/masterpiece/blob/main/assets/images/icons/android/Roundlogo.png" height="auto" width="200" style="border-radius:50px"></a>
+  <a href="url"><img src="https://github.com/prince-ao/masterpiece/blob/main/assets/images/icons/android/play_store_512.png" height="auto" width="200"></a>
 </p>
 <h1 align="center" id="top"> Masterpiece <br> "Unveiling the Worth of Creativity" </h1>
 
