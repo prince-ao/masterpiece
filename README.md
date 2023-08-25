@@ -5,7 +5,8 @@
 <h1 align="center"> Masterpiece </h1>
 <h3 align="center">Generate art prices with AI.</h3>
 <h1 id="top"></h1>
-## 📍 Overview 
+
+📍 Overview
 
 *Masterpiece* is an mobile app for art enthusiasts to explore and discover various artworks while also providing information about their prices. The app aims to bring together artists, galleries, and users in a seamless and visually appealing manner.*Masterpiece* is a powerful, user-friendly mobile app that generates AI prices for your Images. By uploading a image, this app generates prices for your Images, leveraging the capabilities of Neural Networks(Patina-Net).
 
@@ -83,7 +84,11 @@ Our motivation behind developing this software app was to create a fair art mark
 ![Untitled.png](https://github.com/prince-ao/masterpiece/blob/main/assets/images/Untitled.png)
 
 # Steps for installing and using the app:
-
+Backend
+```
+pnpm start
+```
+Frontend
 ```bash
 
 npx expo start
