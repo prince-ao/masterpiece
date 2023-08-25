@@ -2,9 +2,7 @@
 <p  align="center">
   <a href="url"><img src="https://github.com/prince-ao/masterpiece/blob/main/assets/images/icons/android/Roundlogo.png" height="auto" width="200" style="border-radius:50px"></a>
 </p>
-<h1 align="center"> Masterpiece </h1>
-<h2 align="center">Unveiling the Worth of Creativity</h2>
-<h1 id="top"></h1>
+<h1 align="center" id="top"> Masterpiece <br> Unveiling the Worth of Creativity </h1>
 
 <h1 align="center">Table of Contents</h1>
 
