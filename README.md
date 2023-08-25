@@ -115,7 +115,7 @@ Our motivation behind developing this software app was to create a fair art mark
 
 ## Software-Architecture <a name="software-architecture"></a>
 
-![Untitled.png](https://cdn.discordapp.com/attachments/1140776548505485401/1144641792621433013/arc.png)
+![Untitled.png](https://github.com/prince-ao/masterpiece/blob/warhol/assets/images/Software%20Architecture.png)
 
 ## Database Design <a name="database-design"></a>
 ### Comment Table <a name="comment-table"></a>
