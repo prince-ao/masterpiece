@@ -20,7 +20,7 @@ Our motivation behind developing this software app was to create a fair art mark
 ---
 ## ⚙️ Features
 
-<h1 align="center">1.<br>👇<br><br>📑 Codebase Documentation</h1>
+<h1 align="center">1.<br>👇<br><br>📑 Features </h1>
 <table align="center">
     <tr>
         <td>
