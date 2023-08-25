@@ -53,8 +53,7 @@ Our motivation behind developing this software app was to create a fair art mark
         <td>
             <h3>◦ Search and Filters</h3>
             <ul>
-                <li>The app will provide search functionality, allowing users to find specific artworks or filter them based on various criteria</li>
-                <li>Filters may include artist name, art style, medium, and price range.</li>
+                <li>The app will provide search functionality, allowing users to find specific artworks or filter them based on various criteria. Filters may include artist name, art style, medium, and price range.</li>
             </ul>
         </td>
     </tr>
