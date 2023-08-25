@@ -80,7 +80,7 @@ Our motivation behind developing this software app was to create a fair art mark
 
 # User-Flow
 
-![Untitled.png](https://github.com/prince-ao/masterpiece/blob/main/assets/images/Untitled.png)
+![Untitled.png](https://github.com/prince-ao/masterpiece/blob/main/assets/images/User-flow.png)
 
 # Steps for installing and using the app:
 Backend
