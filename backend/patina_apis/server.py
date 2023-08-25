@@ -1,6 +1,6 @@
 from flask import Flask, request
-import tensorflow as tf
-from tensorflow.keras.models import load_model
+# import tensorflow as tf
+# from tensorflow.keras.models import load_model
 from PIL import Image
 import numpy as np
 import io
