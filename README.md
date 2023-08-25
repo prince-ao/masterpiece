@@ -6,7 +6,8 @@
 <h3 align="center">Generate <i>Art</i> prices with AI.</h3>
 <h1 id="top"></h1>
 
----
+<h1 align="center">Table of Contents</h1>
+
 - [Overview](#overview)
 - [Motivation](#motivation)
 - [Disclaimer](#disclaimer)
