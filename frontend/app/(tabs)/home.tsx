@@ -7,13 +7,17 @@ import {
   View,
   FlatList,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
-import { Stack } from "expo-router";
-import { useEffect, useState } from "react";
+import { Stack, router } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
 import { HomeHeader, Card, FocusStatusBar } from "../../components";
 import Colors from "../../constants/Colors";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { Button } from "react-native-elements/dist/buttons/Button";
+import { getToken, removeToken } from "../../lib/store";
+import { RefreshControl } from "react-native-gesture-handler";
 
 export interface HomepageData {
   image_url: string;
@@ -33,133 +37,85 @@ export interface HomepageResponse {
 }
 
 const home = () => {
-  const origin = "http://localhost:3005";
+  const origin = "http://192.168.0.48:3005";
   let page = 1;
 
   const [home, setHome] = useState<HomepageResponse>();
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     (async () => {
       const data = await getHomepage();
-
-      console.log(data);
 
       setHome(data);
     })();
   }, []);
 
   async function getHomepage() {
-    // const response = await axios.get(`${origin}/api/homepage?page=${page}`);
-
-    // return response.data as HomepageResponse;
+    try {
+      const { data } = await axios.get(`${origin}/api/homepage?page=${page}`, {
+        headers: {
+          Authentication: `Bearer ${await getToken()}`,
+        },
+      });
+      return data as HomepageResponse;
+    } catch (e) {
+      console.log((e as AxiosError).toJSON());
+    }
 
     return {
       hasNext: false,
-      data: [
-        {
-          image_url: "nothing",
-          name: "the crying lady",
-          user_id: "123123412312",
-          username: "gay lord",
-          profile_image_url: "nothing",
-          caption: "hello world",
-          price: 100,
-          ai_price: 100,
-          likes: 10,
-        },
-        {
-          image_url: "nothing",
-          name: "the crying lady",
-          user_id: "123123412312",
-          username: "gay lord",
-          profile_image_url: "nothing",
-          caption: "hello world",
-          price: 100,
-          ai_price: 100,
-          likes: 10,
-        },
-        {
-          image_url: "nothing",
-          name: "the crying lady",
-          user_id: "123123412312",
-          username: "gay lord",
-          profile_image_url: "nothing",
-          caption: "hello world",
-          price: 100,
-          ai_price: 100,
-          likes: 10,
-        },
-        {
-          image_url: "nothing",
-          name: "the crying lady",
-          user_id: "123123412312",
-          username: "gay lord",
-          profile_image_url: "nothing",
-          caption: "hello world",
-          price: 100,
-          ai_price: 100,
-          likes: 10,
-        },
-        {
-          image_url: "nothing",
-          name: "the crying lady",
-          user_id: "123123412312",
-          username: "gay lord",
-          profile_image_url: "nothing",
-          caption: "hello world",
-          price: 100,
-          ai_price: 100,
-          likes: 10,
-        },
-        {
-          image_url: "nothing",
-          name: "the crying lady",
-          user_id: "123123412312",
-          username: "gay lord",
-          profile_image_url: "nothing",
-          caption: "hello world",
-          price: 100,
-          ai_price: 100,
-          likes: 10,
-        },
-        {
-          image_url: "nothing",
-          name: "the crying lady",
-          user_id: "123123412312",
-          username: "gay lord",
-          profile_image_url: "nothing",
-          caption: "hello world",
-          price: 100,
-          ai_price: 100,
-          likes: 10,
-        },
-      ],
+      data: [],
     } as HomepageResponse;
   }
 
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    const data = await getHomepage();
+    setHome(data);
+    setRefreshing(false);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{
-          paddingTop: Platform.select({ android: 30 }),
-          paddingHorizontal: 0,
+      <TouchableOpacity
+        style={{
+          backgroundColor: "#0085CA",
+          width: "30%",
+          height: 30,
+          borderRadius: 5,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          alignSelf: "center",
+          marginTop: 20,
+        }}
+        onPress={async () => {
+          await removeToken();
+          router.replace("/");
         }}
       >
+        <Text style={{ color: "white", fontSize: 18 }}>sign out</Text>
+      </TouchableOpacity>
+
+      <View style={styles.container}>
         <View style={styles.container}>
-          <View style={styles.container}>
-            {home ? (
-              <FlatList
-                data={home!.data}
-                renderItem={({ item }) => <Card data={item} />}
-                keyExtractor={(item) => item.toString()}
-                showsVerticalScrollIndicator={false}
-              />
-            ) : (
-              <></>
-            )}
-          </View>
+          {home ? (
+            <FlatList
+              refreshing={refreshing}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+              data={home.data}
+              renderItem={({ item }) => <Card data={item} />}
+              keyExtractor={(item) => item.image_url}
+              showsVerticalScrollIndicator={false}
+            />
+          ) : (
+            <></>
+          )}
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -171,6 +127,8 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
     width: Dimensions.get("window").width,
+    display: "flex",
+    flexDirection: "column",
   },
   title: {
     fontSize: 20,

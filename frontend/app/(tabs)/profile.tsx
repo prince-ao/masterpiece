@@ -8,13 +8,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios, { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ContentLoader from "react-native-easy-content-loader";
 import { getToken } from "../../lib/store";
 import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
+import ProfilePage from "../../components/ProfilePage";
+import { RefreshControl } from "react-native-gesture-handler";
 
-interface Profile {
+export interface Profile {
   username: string;
   bio: string;
   followers_count: number;
@@ -29,6 +31,7 @@ const profile = () => {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<Profile | undefined>(undefined);
   const [galleryImages, setGalleryImages] = useState<string[] | undefined>();
+  const [refreshing, setRefreshing] = useState(false);
 
   function wait(milliseconds: number) {
     return new Promise((resolve) => {
@@ -36,151 +39,52 @@ const profile = () => {
     });
   }
 
-  async function handleAddImage() {
-    router.push("/addImage");
-  }
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data }: { data: Profile } = await axios.get(
-          `${origin}/api/profile`,
-          {
-            headers: {
-              Authentication: `Bearer ${await getToken()}`,
-            },
-          }
-        );
-
-        setProfile(data);
-
-        await wait(1000);
-
-        setLoading(false);
-
-        const response = await axios.get(`${origin}/api/paintings`, {
+  async function getProfile() {
+    try {
+      const { data }: { data: Profile } = await axios.get(
+        `${origin}/api/profile`,
+        {
           headers: {
             Authentication: `Bearer ${await getToken()}`,
           },
-        });
+        }
+      );
 
-        setGalleryImages(response.data);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
+      setProfile(data);
+
+      setLoading(false);
+
+      const response = await axios.get(`${origin}/api/paintings`, {
+        headers: {
+          Authentication: `Bearer ${await getToken()}`,
+        },
+      });
+
+      setGalleryImages(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getProfile();
   }, []);
+
   return (
-    <SafeAreaView>
-      <ContentLoader
-        active
-        avatar
-        loading={loading}
-        containerStyles={{ backgroundColor: "black" }}
-      >
-        {profile === undefined ? (
-          <></>
-        ) : (
-          <View style={{ backgroundColor: "black" }}>
-            <Text style={{ color: "white", fontSize: 18, margin: 10 }}>
-              {profile.username}
-            </Text>
-            <View
-              style={{
-                backgroundColor: "black",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-around",
-                borderBottomWidth: 1,
-                borderColor: "white",
-                paddingBottom: 30,
-              }}
-            >
-              <Image
-                source={require("../../assets/images/default_user.jpg")}
-                style={{ width: 80, height: 80, borderRadius: 50 }}
-              />
-              <View>
-                <View
-                  style={{ display: "flex", flexDirection: "row", gap: 14 }}
-                >
-                  <View>
-                    <Text style={{ color: "white" }}>paintings</Text>
-                    <Text style={{ color: "white", textAlign: "center" }}>
-                      {profile.painting_count}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={{ color: "white" }}>followers</Text>
-                    <Text style={{ color: "white", textAlign: "center" }}>
-                      {profile.followers_count}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={{ color: "white" }}>following</Text>
-                    <Text style={{ color: "white", textAlign: "center" }}>
-                      {profile.following_count}
-                    </Text>
-                  </View>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: "#0085CA",
-                    borderRadius: 5,
-                    height: 30,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    marginTop: 20,
-                  }}
-                  onPress={handleAddImage}
-                >
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      color: "white",
-                      textAlign: "center",
-                    }}
-                  >
-                    add image
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <ScrollView style={{ height: "100%" }}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  justifyContent: "space-between",
-                  padding: 10,
-                }}
-              >
-                {galleryImages === undefined ? (
-                  <></>
-                ) : (
-                  galleryImages!.map((image, index) => {
-                    console.log(image);
-                    return (
-                      <Image
-                        source={{ uri: image }}
-                        key={index}
-                        style={{
-                          width: 120,
-                          height: 120,
-                          marginBottom: 10,
-                        }}
-                      />
-                    );
-                  })
-                )}
-              </View>
-            </ScrollView>
-          </View>
-        )}
-      </ContentLoader>
-    </SafeAreaView>
+    <>
+      {profile ? (
+        <ProfilePage
+          loading={loading}
+          profile={profile}
+          hasAddImage
+          galleryImages={galleryImages!}
+          user_id={undefined}
+          update={getProfile}
+        />
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 

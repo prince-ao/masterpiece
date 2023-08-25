@@ -152,6 +152,20 @@ _Note: username xor email_
 }
 ```
 
+##### GET /api/paintings/user/[user_id]
+
+`200` response:
+
+```json
+{
+  "response": [
+    {
+      "image_url": "string"
+    }
+  ]
+}
+```
+
 ##### GET /api/paintings/[painting_id]
 
 ```json
@@ -418,7 +432,29 @@ _Note: the body is caption or name_
 
 #### Follow Action
 
-##### POST /api/users/[user_id]/follow
+##### GET /api/follow/[user_id]
+
+```json
+{
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
+```
+
+`200` response:
+
+`400` response:
+
+```json
+{
+  "response": {
+    "error_message": "string"
+  }
+}
+```
+
+##### POST /api/follow/[user_id]
 
 ```json
 {
@@ -444,7 +480,7 @@ _Note: the body is caption or name_
 
 ---
 
-##### DELETE /api/users/[user_id]/follow
+##### DELETE /api/follow/[user_id]
 
 ```json
 {
@@ -520,15 +556,7 @@ _Note: the body is caption or name_
 
 #### User Actions
 
-##### GET /api/users/[user_id]
-
-```json
-{
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
-}
-```
+##### GET /api/user/[user_id]
 
 `200` response:
 

@@ -7,7 +7,7 @@ export default () => {
       <Tabs.Screen
         name="home"
         options={{
-          title: "mastermind",
+          title: "masterpiece",
           headerStyle: { backgroundColor: "#000", borderBottomWidth: 1 },
           headerTitleStyle: {
             color: "white",
@@ -27,9 +27,31 @@ export default () => {
         }}
       />
       <Tabs.Screen
+        name="search"
+        options={{
+          title: "masterpiece",
+          headerStyle: { backgroundColor: "#000", borderBottomWidth: 1 },
+          headerTitleStyle: {
+            color: "white",
+          },
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <Ionicons
+                name="search"
+                color={color === "rgb(0, 122, 255)" ? "white" : "gray"}
+                size={size}
+              />
+            );
+          },
+          tabBarActiveBackgroundColor: "black",
+          tabBarInactiveBackgroundColor: "black",
+          tabBarLabel: () => null,
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
-          title: "mastermind",
+          title: "masterpiece",
           headerStyle: { backgroundColor: "#000", borderBottomWidth: 1 },
           headerTitleStyle: {
             color: "white",

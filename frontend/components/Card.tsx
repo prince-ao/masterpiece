@@ -16,7 +16,13 @@ const Card = ({ data }: { data: HomepageData }) => {
       }}
     >
       <View style={{ width: "100%", height: 400 }}>
-        <View
+        <TouchableOpacity
+          onPress={() => {
+            router.push({
+              pathname: "/profilepage",
+              params: { user_id: (data as any).user_id },
+            });
+          }}
           style={{
             display: "flex",
             flexDirection: "row",
@@ -27,7 +33,7 @@ const Card = ({ data }: { data: HomepageData }) => {
           }}
         >
           <Image
-            source={{ uri: "https://picsum.photos/100/100" }}
+            source={require("../assets/images/default_user.jpg")}
             style={{ width: 40, height: 40, borderRadius: 20 }}
           />
           <Text
@@ -38,11 +44,11 @@ const Card = ({ data }: { data: HomepageData }) => {
               color: "white",
             }}
           >
-            Art Title Goes here
+            {(data as any).username}
           </Text>
-        </View>
+        </TouchableOpacity>
         <Image
-          source={{ uri: "https://picsum.photos/200/300" }}
+          source={{ uri: (data as any).image_url }}
           style={{ width: "100%", height: 300, marginTop: 10 }}
         />
         <TouchableOpacity>

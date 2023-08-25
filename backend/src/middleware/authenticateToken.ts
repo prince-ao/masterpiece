@@ -13,11 +13,18 @@ async function authenticateToken(
         return res.status(400).json({ error: "No token provided" });
     }
 
-    const decoded = jwt.verify(
-        token.split(" ")[1],
-        process.env.JWT_SECRET as string
-    ) as { user_id: string };
-    (req as any).user_id = decoded.user_id;
+    try {
+        const decoded = jwt.verify(
+            token.split(" ")[1],
+            process.env.JWT_SECRET as string
+        ) as { user_id: string };
+        (req as any).user_id = decoded.user_id;
+    } catch (e: any) {
+        if (e.message === "jwt expired") return res.status(401);
+        return res.status(400).send({
+            error_message: "Unexpected error",
+        });
+    }
     next();
 }
 

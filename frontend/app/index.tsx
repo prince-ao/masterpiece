@@ -18,7 +18,7 @@ export default function Page() {
       if (token === null) {
         router.push("/limbo");
       } else {
-        router.push("/profile");
+        router.push("/home");
       }
     })();
   }, []);

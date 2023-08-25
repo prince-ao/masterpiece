@@ -55,6 +55,7 @@ const RegisterForm = () => {
           <TextInput
             style={styles.input}
             placeholder="Username"
+            placeholderTextColor={"black"}
             value={name}
             onChangeText={setName}
           />
@@ -62,6 +63,7 @@ const RegisterForm = () => {
             style={styles.input}
             placeholder="Email"
             value={email}
+            placeholderTextColor={"black"}
             onChangeText={setEmail}
             keyboardType="email-address"
             autoCapitalize="none"
@@ -71,6 +73,7 @@ const RegisterForm = () => {
             <TextInput
               style={styles.passwordInput}
               placeholder="Password"
+              placeholderTextColor={"black"}
               value={password}
               onChangeText={setPassword}
               secureTextEntry={!showPassword}
@@ -132,6 +135,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: "#d0d0d0",
+    color: "black",
     borderRadius: 5,
     paddingVertical: 12,
     paddingHorizontal: 16,

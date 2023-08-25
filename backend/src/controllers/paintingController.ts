@@ -34,13 +34,22 @@ router.get("/:painting_id", async (req, res) => {
     }
 });
 
+router.get("/user/:user_id", async (req, res) => {
+    const params = req.params;
+
+    const result = await pool.query(
+        "SELECT image_url FROM painting WHERE user_id = $1",
+        [params.user_id]
+    );
+
+    return res.status(200).send(result.rows.map(({ image_url }) => image_url));
+});
+
 router.get("/", authenticateToken, async (req, res) => {
     const result = await pool.query(
         "SELECT image_url FROM painting WHERE user_id = $1",
         [(req as any).user_id]
     );
-
-    console.log(result.rows.map(({ image_url }) => image_url));
 
     return res.status(200).send(result.rows.map(({ image_url }) => image_url));
 });
@@ -60,7 +69,6 @@ router.post(
     },
     authenticateToken,
     async (req, res) => {
-        console.log((req as any).user_id);
         const uuid_ = uuid();
         const body = req.body;
         const decodedImageBuffer = Buffer.from(body.image, "base64");
