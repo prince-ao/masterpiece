@@ -6,19 +6,49 @@
 <h3 align="center">Generate <i>Art</i> prices with AI.</h3>
 <h1 id="top"></h1>
 
-📍 ***Overview***
+---
+- [Overview](#overview)
+- [Motivation](#motivation)
+- [Disclaimer](#disclaimer)
+- [Features](#features)
+- [User-Flow](#user-flow)
+- [Software-Architecture](#software-architecture)
+- [Database Design](#database-design)
+  - [Comment Table](#comment-table)
+  - [Follow Table](#follow-table)
+  - [Like Table](#like-table)
+  - [Notification Table](#notification-table)
+  - [Painting Table](#painting-table)
+  - [User Table](#user-table)
+  - [Database Relationship](#database-relationship)
+- [Social API Design](#social-api-design)
+  - [User Authentication and Authorization](#user-authentication-and-authorization)
+  - [Paintings Action](#paintings-action)
+  - [Comment Action](#comment-action)
+  - [Like Action](#like-action)
+  - [Follow Action](#follow-action)
+  - [Notification Action](#notification-action)
+  - [User Actions](#user-actions)
+  - [Search Actions](#search-actions)
+  - [Homepage Actions](#homepage-actions)
+- [AI API Design](#ai-api-design)
+  - [Patina Model](#patina-model)
+
+---
+
+## Overview <a name="overview"></a>
 
 *Masterpiece* is an mobile app for art enthusiasts to explore and discover various artworks while also providing information about their prices. The app aims to bring together artists, galleries, and users in a seamless and visually appealing manner.*Masterpiece* is a powerful, user-friendly mobile app that generates AI prices for your Images. By uploading a image, this app generates prices for your Images, leveraging the capabilities of Neural Networks(Patina-Net).
 
-#### 🎯 *Motivation*
+## Motivation <a name="motivation"></a>
 
 Our motivation behind developing this software app was to create a fair art market that addresses the challenges faced by both sellers and buyers in determining the value and pricing of art pieces. We recognized that the traditional art market can be opaque and subjective, making it difficult for artists and art enthusiasts to navigate and establish fair transactions.With the power of AI, we aim to revolutionize the art market by leveraging advanced algorithms and data-driven insights. Our goal is to provide a platform that fosters transparency, trust, and fairness for all stakeholders involved in the art ecosystem.
-#### ⚠️ *Disclaimer*
+## Disclaimer <a name="disclaimer"></a>
 
 *Masterpiece* is currently under development and may not have all the intended features or functionalities at this stage. We are continuously working to enhance and improve the app, and future updates may introduce additional capabilities.
 
 ---
-## ⚙️ Features
+## Features <a name="features"></a>
 
 <h1 align="center">👇<br></h1>
 <table align="center" width="200px" >
@@ -78,16 +108,16 @@ Our motivation behind developing this software app was to create a fair art mark
 </table>
 
 
-# User-Flow
+## User-Flow <a name="user-flow"></a>
 
 ![Untitled.png](https://github.com/prince-ao/masterpiece/blob/main/assets/images/User-flow.png)
 
-# Software-Architecture
+## Software-Architecture <a name="software-architecture"></a>
 
 ![Untitled.png](https://cdn.discordapp.com/attachments/1140776548505485401/1144641792621433013/arc.png)
 
-# Database Design
-Comment.sql
+## Database Design <a name="database-design"></a>
+### Comment Table <a name="comment-table"></a>
 ```
 CREATE TABLE IF NOT EXISTS m_comment (
 	comment_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -97,7 +127,7 @@ CREATE TABLE IF NOT EXISTS m_comment (
 	created_at TIMESTAMP NOT NULL
 );
 ```
-Follow.sql
+### Follow Table <a name="follow-table"></a>
 ```
 CREATE TABLE IF NOT EXISTS follow (
 	follow_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -106,7 +136,7 @@ CREATE TABLE IF NOT EXISTS follow (
 	created_at TIMESTAMP NOT NULL
 );
 ```
-Like.sql
+### Like Table <a name="like-table"></a>
 ```
 CREATE TABLE IF NOT EXISTS m_like (
 	m_like_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -115,7 +145,7 @@ CREATE TABLE IF NOT EXISTS m_like (
 	created_at TIMESTAMP NOT NULL
 );
 ```
-Notification.sql
+### Notification Table <a name="notification-table"></a>
 ```
 CREATE TABLE IF NOT EXISTS notification (
 	notification_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -127,7 +157,7 @@ CREATE TABLE IF NOT EXISTS notification (
 	created_at TIMESTAMP NOT NULL
 );
 ```
-Painting.sql
+### Painting Table <a name="painting-table"></a>
 ```
 CREATE TABLE IF NOT EXISTS painting (
 	painting_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -141,7 +171,7 @@ CREATE TABLE IF NOT EXISTS painting (
 	created_at TIMESTAMP NOT NULL
 );
 ```
-User.sql
+### User Table <a name="user-table"></a>
 ```
 CREATE TABLE IF NOT EXISTS m_user (
 	user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -153,12 +183,12 @@ CREATE TABLE IF NOT EXISTS m_user (
 	created_at TIMESTAMP NOT NULL
 );
 ```
-## Database relationship
+### Database Relationship <a name="database-relationship"></a>
 <img src="https://raw.githubusercontent.com/prince-ao/masterpiece/warhol/assets/images/db-schema.png">
 
-# Social API Design
+## Social API Design <a name="social-api-design"></a>
 
-#### User Authentication and Authorization
+### User Authentication and Authorization <a name="user-authentication-and-authorization"></a>
 
 ##### POST /api/auth/signup
 
@@ -232,7 +262,7 @@ _Note: username xor email_
 
 ---
 
-#### Paintings Action
+### Paintings Action <a name="paintings-action"></a>
 
 ##### GET /api/paintings
 
@@ -400,7 +430,7 @@ _Note: the body is caption or name_
 
 ---
 
-#### Comment Action
+### Comment Action <a name="comment-action"></a>
 
 ##### POST /api/paintings/[painting_id]/comments
 
@@ -482,7 +512,7 @@ _Note: the body is caption or name_
 
 ---
 
-#### Like Action
+### Like Action <a name="like-action"></a>
 
 ##### POST /api/paintings/[painting_id]/like
 
@@ -534,7 +564,7 @@ _Note: the body is caption or name_
 
 ---
 
-#### Follow Action
+### Follow Action <a name="follow-action"></a>
 
 ##### GET /api/follow/[user_id]
 
@@ -610,7 +640,7 @@ _Note: the body is caption or name_
 
 ---
 
-#### Notification Action
+### Notification Action <a name="notification-action"></a>
 
 ##### GET /api/notifications
 
@@ -658,7 +688,7 @@ _Note: the body is caption or name_
 }
 ```
 
-#### User Actions
+### User Actions <a name="user-actions"></a>
 
 ##### GET /api/user/[user_id]
 
@@ -724,7 +754,7 @@ _Note: the body is caption or name_
 
 ---
 
-#### Search Actions
+### Search Actions <a name="search-actions"></a>
 
 ##### GET /api/search?s=[search_string]
 
@@ -761,7 +791,7 @@ _Note: the body is caption or name_
 
 ---
 
-#### Homepage Actions
+### Homepage Actions <a name="homepage-actions"></a>
 
 ##### GET /api/homepage?page=[page_number]
 
@@ -806,9 +836,9 @@ _Note auth is optional_
 }
 ```
 
-### AI API Design
+## AI API Design <a name="ai-api-design"></a>
 
-#### Patina Model
+### Patina Model <a name="patina-model"></a>
 
 ##### POST /patina
 
