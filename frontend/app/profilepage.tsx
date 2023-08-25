@@ -9,7 +9,7 @@ import { getToken } from "../lib/store";
 
 export default function profilepage(body: any) {
   const params = useGlobalSearchParams();
-  const origin = "http://192.168.0.48:3005";
+  const origin = "http://3.128.192.247:3005";
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<Profile | undefined>(undefined);
   const [galleryImages, setGalleryImages] = useState<string[] | undefined>();

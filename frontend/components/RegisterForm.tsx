@@ -19,7 +19,7 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const origin = "http://192.168.0.48:3005";
+  const origin = "http://3.128.192.247:3005";
 
   async function handleRegister() {
     try {

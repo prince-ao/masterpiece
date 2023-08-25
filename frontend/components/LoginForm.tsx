@@ -24,7 +24,7 @@ const LoginForm: React.FC = () => {
     };
 
     const requestData = { email: email, password: password };
-    const origin = "http://192.168.0.48:3005";
+    const origin = "http://3.128.192.247:3005";
 
     try {
       const { data } = await axios.post(

@@ -37,7 +37,7 @@ export interface HomepageResponse {
 }
 
 const home = () => {
-  const origin = "http://192.168.0.48:3005";
+  const origin = "http://3.128.192.247:3005";
   let page = 1;
 
   const [home, setHome] = useState<HomepageResponse>();

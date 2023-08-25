@@ -45,7 +45,7 @@ const Search: React.FC = () => {
   };
 
   const ItemSeparatorView: React.FC = () => <View style={styles.separator} />;
-  const origin = "http://192.168.0.48:3005";
+  const origin = "http://3.128.192.247:3005";
 
   const getItem = (item: any) => {
     alert(`Id: ${item.id}\nTitle: ${item.title}`);

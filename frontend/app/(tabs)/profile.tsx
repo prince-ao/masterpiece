@@ -27,7 +27,7 @@ export interface Profile {
 
 const profile = () => {
   // send a request for users profile
-  const origin = "http://192.168.0.48:3005";
+  const origin = "http://3.128.192.247:3005";
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<Profile | undefined>(undefined);
   const [galleryImages, setGalleryImages] = useState<string[] | undefined>();

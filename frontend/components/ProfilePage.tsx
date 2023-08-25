@@ -30,7 +30,7 @@ const ProfilePage = ({
   user_id: string | undefined;
   update: () => any;
 }) => {
-  const origin = "http://192.168.0.48:3005";
+  const origin = "http://3.128.192.247:3005";
   const [followColor, setFollowColor] = useState("#0085CA");
   const [textColor, setTextColor] = useState("white");
   const [refreshing, setRefreshing] = useState(false);
