@@ -12,15 +12,22 @@
       "resizeMode": "contain",
       "backgroundColor": "#1A1110"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.princeao.masterpiece"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.princeao.masterpiece"
     },
     "web": {
       "bundler": "metro",
@@ -38,6 +45,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "63b7d759-dc0e-4ec2-9b56-6874f77200cd"
+      }
     }
   }
 }
