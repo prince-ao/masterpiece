@@ -22,7 +22,7 @@ export default function login() {
   const [price, setPrice] = useState<string | undefined>();
   const [name, setName] = useState<string | undefined>();
 
-  const origin = "http://192.168.0.48:3005";
+  const origin = "http://3.128.192.247:3005";
 
   async function takeAPicture() {
     let result = await ImagePicker.launchCameraAsync({
