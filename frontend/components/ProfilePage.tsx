@@ -185,7 +185,7 @@ const ProfilePage = ({
                         textAlign: "center",
                       }}
                     >
-                      Add Image
+                      Add Painting
                     </Text>
                   </TouchableOpacity>
                 ) : (

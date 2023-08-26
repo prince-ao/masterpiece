@@ -15,11 +15,11 @@
 
 ## :round_pushpin: Overview <a name="overview"></a>
 
-_Masterpiece_ is an mobile app for art enthusiasts to explore and discover various artworks while also providing information about their prices. The app aims to bring together artists, galleries, and users in a seamless and visually appealing manner. _Masterpiece_ is a powerful, user-friendly mobile app that generates AI prices for your Images. By uploading a image, this app generates prices for your Images, leveraging the capabilities of Neural Networks(Patina-Net).
+Masterpiece is a cross platform mobile app for art enthusiasts, artists, gallerias and investors to explore, discover, purchase, and sell artworks. The app aims to bring together artists, galleries, investors, and art enthusiasts in a seamless and modern manner. The "killer app" of Masterpiece is our in-house ai model Patina; Patina is a fine-tuned online ResNet CNN for the purpose of generating the price of a painting based on training data. Patina is used to inform investors who are determining the value of an painting and to inform artists on the value of their painting. The model is retrained whenever a purchase is made, which keeps the model up to date, and, therefore, creates an efficient art market.
 
 ## :runner: Motivation <a name="motivation"></a>
 
-Our motivation behind developing this software app was to create a fair art market that addresses the challenges faced by both sellers and buyers in determining the value and pricing of art pieces. We recognized that the traditional art market can be opaque and subjective, making it difficult for artists and art enthusiasts to navigate and establish fair transactions. With the power of AI, we aim to revolutionize the art market by leveraging advanced algorithms and data-driven insights. Our goal is to provide a platform that fosters transparency, trust, and fairness for all stakeholders involved in the art ecosystem.
+In 2005, unbeknownst to the auctioneers, Leonardo Da Vinci's Salvator Mundi was presented at St. Charles Gallery, it was subsequently acquired for $1,175. Fast forward to 2017 and it was sold at Christie's for a staggering $450,312,500. Disparities like these often occur in the art industry partly because it is difficult to determine the value of a painting. Masterpiece is an attempt to bridge this gap.
 
 ## :wrench: Features <a name="features"></a>
 
