@@ -56,7 +56,7 @@ const Card = ({ data }: { data: HomepageData }) => {
             name="heart-outline"
             color="white"
             size={30}
-            style={{ marginTop: 5, marginLeft: 5 }}
+            style={{ marginTop: 5, marginLeft: 10 }}
           />
         </TouchableOpacity>
       </View>

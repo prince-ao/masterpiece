@@ -76,28 +76,16 @@ const home = () => {
     setRefreshing(false);
   }, []);
 
+  function shuffle(a: any[]) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "#0085CA",
-          width: "30%",
-          height: 30,
-          borderRadius: 5,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          alignSelf: "center",
-          marginTop: 20,
-        }}
-        onPress={async () => {
-          await removeToken();
-          router.replace("/");
-        }}
-      >
-        <Text style={{ color: "white", fontSize: 18 }}>sign out</Text>
-      </TouchableOpacity>
-
       <View style={styles.container}>
         <View style={styles.container}>
           {home ? (

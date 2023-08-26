@@ -8,12 +8,14 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import ContentLoader from "react-native-easy-content-loader";
 import { Profile } from "../app/(tabs)/profile";
 import axios, { AxiosError } from "axios";
 import { RefreshControl } from "react-native-gesture-handler";
-import { getToken } from "../lib/store";
+import { getToken, removeToken } from "../lib/store";
+import { Ionicons } from "@expo/vector-icons";
 
 const ProfilePage = ({
   loading,
@@ -75,21 +77,23 @@ const ProfilePage = ({
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
-      style={{ height: "100%" }}
+      style={{
+        height: Dimensions.get("screen").height,
+      }}
     >
       <ContentLoader
         active
         avatar
         loading={loading}
-        containerStyles={{ backgroundColor: "black", height: "100%" }}
+        containerStyles={{
+          backgroundColor: "black",
+          height: Dimensions.get("screen").height,
+        }}
       >
         {profile === undefined ? (
           <></>
         ) : (
           <View style={{ backgroundColor: "black", height: "100%" }}>
-            <Text style={{ color: "white", fontSize: 18, margin: 10 }}>
-              {profile.username}
-            </Text>
             <View
               style={{
                 backgroundColor: "black",
@@ -102,28 +106,60 @@ const ProfilePage = ({
                 paddingBottom: 30,
               }}
             >
-              <Image
-                source={require("../assets/images/default_user.jpg")}
-                style={{ width: 80, height: 80, borderRadius: 50 }}
-              />
-              <View>
+              <View style={{}}>
+                <Image
+                  source={require("../assets/images/default_user.jpg")}
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 50,
+                    marginTop: 35,
+                  }}
+                />
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 18,
+                    margin: 10,
+                  }}
+                >
+                  {profile.username}
+                </Text>
+              </View>
+              <View style={{ display: "flex" }}>
+                {hasAddImage ? (
+                  <TouchableOpacity
+                    onPress={async () => {
+                      await removeToken();
+                      router.replace("/limbo");
+                    }}
+                  >
+                    <Ionicons
+                      name="log-out-outline"
+                      color="white"
+                      style={{ fontSize: 30, alignSelf: "flex-end" }}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <></>
+                )}
                 <View
                   style={{ display: "flex", flexDirection: "row", gap: 14 }}
                 >
                   <View>
-                    <Text style={{ color: "white" }}>paintings</Text>
+                    <Text style={{ color: "white" }}>Paintings</Text>
                     <Text style={{ color: "white", textAlign: "center" }}>
                       {profile.painting_count}
                     </Text>
                   </View>
                   <View>
-                    <Text style={{ color: "white" }}>followers</Text>
+                    <Text style={{ color: "white" }}>Followers</Text>
                     <Text style={{ color: "white", textAlign: "center" }}>
                       {profile.followers_count}
                     </Text>
                   </View>
                   <View>
-                    <Text style={{ color: "white" }}>following</Text>
+                    <Text style={{ color: "white" }}>Following</Text>
                     <Text style={{ color: "white", textAlign: "center" }}>
                       {profile.following_count}
                     </Text>
@@ -149,7 +185,7 @@ const ProfilePage = ({
                         textAlign: "center",
                       }}
                     >
-                      add image
+                      Add Image
                     </Text>
                   </TouchableOpacity>
                 ) : (
