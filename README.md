@@ -1,6 +1,5 @@
-
 <p  align="center">
-  <a href="url"><img src="https://github.com/prince-ao/masterpiece/blob/warhol/assets/images/icons/android/play_store_512-rounded.png" height="auto" width="130"></a>
+  <a href="url"><img src="https://raw.githubusercontent.com/prince-ao/masterpiece/warhol/assets/images/icons/android/play_store_512-rounded.png" height="auto" width="130"></a>
 </p>
 <h1 align="center" id="top"> Masterpiece </h1>
 <h1>Table of Contents</h1>
@@ -14,15 +13,15 @@
 
 ---
 
-## Overview :round_pushpin:<a name="overview"></a>
+## :round_pushpin: Overview <a name="overview"></a>
 
-*Masterpiece* is an mobile app for art enthusiasts to explore and discover various artworks while also providing information about their prices. The app aims to bring together artists, galleries, and users in a seamless and visually appealing manner. *Masterpiece* is a powerful, user-friendly mobile app that generates AI prices for your Images. By uploading a image, this app generates prices for your Images, leveraging the capabilities of Neural Networks(Patina-Net).
+_Masterpiece_ is an mobile app for art enthusiasts to explore and discover various artworks while also providing information about their prices. The app aims to bring together artists, galleries, and users in a seamless and visually appealing manner. _Masterpiece_ is a powerful, user-friendly mobile app that generates AI prices for your Images. By uploading a image, this app generates prices for your Images, leveraging the capabilities of Neural Networks(Patina-Net).
 
-## Motivation :runner:<a name="motivation"></a>
+## :runner: Motivation <a name="motivation"></a>
 
 Our motivation behind developing this software app was to create a fair art market that addresses the challenges faced by both sellers and buyers in determining the value and pricing of art pieces. We recognized that the traditional art market can be opaque and subjective, making it difficult for artists and art enthusiasts to navigate and establish fair transactions. With the power of AI, we aim to revolutionize the art market by leveraging advanced algorithms and data-driven insights. Our goal is to provide a platform that fosters transparency, trust, and fairness for all stakeholders involved in the art ecosystem.
 
-## Features :wrench:<a name="features"></a>
+## :wrench: Features <a name="features"></a>
 
 <table align="center" width="200px" >
     <tr>
@@ -80,15 +79,16 @@ Our motivation behind developing this software app was to create a fair art mark
     </tr>
 </table>
 
-
-## User-Flow :technologist:<a name="user-flow"></a>
+## :technologist: User-Flow <a name="user-flow"></a>
 
 ![Untitled.png](https://github.com/prince-ao/masterpiece/blob/main/assets/images/User-flow.png)
 
-## Software-Architecture :construction_worker:<a name="software-architecture"></a>
+## :construction_worker: Software-Architecture <a name="software-architecture"></a>
 
 ![Untitled.png](https://github.com/prince-ao/masterpiece/blob/warhol/assets/images/software%20architecture.png)
-## <a name = "white-paper" href ="https://github.com/prince-ao/masterpiece/blob/main/documentation/white-paper.md">White Paper :scroll:</a>
+
+## <a name = "white-paper" href ="https://github.com/prince-ao/masterpiece/blob/main/documentation/white-paper.md">:scroll: White Paper</a>
+
 <h2 align="center">
   <a href="#top"><b>🔝 Return </b></a>
 </h2>
